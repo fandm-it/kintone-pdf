@@ -27,14 +27,7 @@ app.post("/generate", async (req, res) => {
 
   const browser = await puppeteer.launch({
     headless: "new",
-    executablePath: "C:\\Users\\natsumi_otake\\.cache\\puppeteer\\chrome\\win64-137.0.7151.55\\chrome-win64\\chrome.exe",
-    args: [
-        "--no-sandbox",
-        "--disable-setuid-sandbox",
-        "--disable-dev-shm-usage",
-        "--disable-gpu",
-        "--no-zygote"
-    ]
+    args: ["--no-sandbox", "--disable-setuid-sandbox"]
   });
   const page = await browser.newPage();
 
