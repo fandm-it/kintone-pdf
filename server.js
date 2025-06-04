@@ -3,33 +3,40 @@ const fs = require("fs");
 const path = require("path");
 const puppeteer = require("puppeteer");
 const handlebars = require("handlebars");
-const app = express();
 
+const app = express();
 app.use(express.json());
 
 const PORT = process.env.PORT || 3000;
 
-// ⭐ 星評価を描画するHandlebarsヘルパー
+// ⭐ 星評価の Handlebars ヘルパー
 handlebars.registerHelper("renderStars", function (score) {
   const full = "★".repeat(score);
   const empty = "☆".repeat(5 - score);
   return full + empty;
 });
 
-// PDF生成エンドポイント
 app.post("/generate", async (req, res) => {
   try {
     const data = req.body;
 
+    // HTMLテンプレート読み込み
     const templatePath = path.join(__dirname, "templates", "page4.html");
     const templateSource = fs.readFileSync(templatePath, "utf8");
     const template = handlebars.compile(templateSource);
     const html = template(data);
 
+    // Chromiumのダウンロードとパス取得
+    const browserFetcher = puppeteer.createBrowserFetcher();
+    const revisionInfo = await browserFetcher.download("1108766"); // puppeteer@19.x の標準
+
+    // Puppeteer起動
     const browser = await puppeteer.launch({
       headless: true,
+      executablePath: revisionInfo.executablePath,
       args: ["--no-sandbox", "--disable-setuid-sandbox"]
     });
+
     const page = await browser.newPage();
     await page.setContent(html, { waitUntil: "networkidle0" });
 
@@ -48,4 +55,3 @@ app.post("/generate", async (req, res) => {
 app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
- 
