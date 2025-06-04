@@ -27,7 +27,8 @@ app.post("/generate", async (req, res) => {
 
   const browser = await puppeteer.launch({
     headless: "new",
-    args: ["--no-sandbox", "--disable-setuid-sandbox"]
+    args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    executablePath: '/usr/bin/chromium-browser' // 手動でインストールしたChromiumのパス
   });
   const page = await browser.newPage();
 
