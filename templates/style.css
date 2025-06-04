@@ -1,7 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap');
+
 body {
-  font-family: sans-serif;
+  font-family: 'Noto Sans JP', sans-serif;
   margin: 40px;
 }
+
 
 .rank-box {
   padding: 1em;
