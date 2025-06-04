@@ -3,46 +3,71 @@ const fs = require("fs");
 const path = require("path");
 const puppeteer = require("puppeteer");
 const handlebars = require("handlebars");
+const { PDFDocument } = require("pdf-lib");
 
 const app = express();
 app.use(express.json());
 
 const PORT = process.env.PORT || 3000;
 
-// ⭐ 星評価の Handlebars ヘルパー
+// ★ 星評価ヘルパー
 handlebars.registerHelper("renderStars", function (score) {
   const full = "★".repeat(score);
   const empty = "☆".repeat(5 - score);
   return full + empty;
 });
 
+// HTML → PDFバッファ生成関数
+async function generatePdfFromHtml(templateFileName, data) {
+  const templatePath = path.join(__dirname, "templates", templateFileName);
+  const templateSource = fs.readFileSync(templatePath, "utf8");
+  const template = handlebars.compile(templateSource);
+  const html = template(data);
+
+  const browser = await puppeteer.launch({
+    headless: "new",
+    args: ["--no-sandbox", "--disable-setuid-sandbox"],
+  });
+
+  const page = await browser.newPage();
+  await page.setContent(html, { waitUntil: "networkidle0" });
+  const pdfBuffer = await page.pdf({ format: "A4" });
+
+  await browser.close();
+  return pdfBuffer;
+}
+
+// PDF結合
+async function mergePdfBuffers(buffers) {
+  const mergedPdf = await PDFDocument.create();
+
+  for (const buffer of buffers) {
+    const pdf = await PDFDocument.load(buffer);
+    const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+    copiedPages.forEach((page) => mergedPdf.addPage(page));
+  }
+
+  return await mergedPdf.save();
+}
+
+// 使用するテンプレートファイル名一覧
+const templateFiles = ["cover.html", "page4.html", "page5.html"]; // 増えたらここに追加
+
 app.post("/generate", async (req, res) => {
   try {
     const data = req.body;
 
-    // HTMLテンプレート読み込み
-    const templatePath = path.join(__dirname, "templates", "page4.html");
-    const templateSource = fs.readFileSync(templatePath, "utf8");
-    const template = handlebars.compile(templateSource);
-    const html = template(data);
+    // 各テンプレートに対してPDFバッファを生成
+    const pdfBuffers = await Promise.all(
+      templateFiles.map((filename) => generatePdfFromHtml(filename, data))
+    );
 
-    // Puppeteer起動（Chromiumは puppeteer@19+ が自動ダウンロードする）
-    const browser = await puppeteer.launch({
-      headless: true,
-      args: ["--no-sandbox", "--disable-setuid-sandbox"]
-    });
-
-    const page = await browser.newPage();
-    await page.setContent(html, { waitUntil: "networkidle0" });
-
-    const pdfBuffer = await page.pdf({ format: "A4" });
-
-    await browser.close();
+    const mergedBuffer = await mergePdfBuffers(pdfBuffers);
 
     res.setHeader("Content-Type", "application/pdf");
-    res.send(pdfBuffer);
-  } catch (error) {
-    console.error("PDF生成中にエラーが発生:", error);
+    res.send(Buffer.from(mergedBuffer));
+  } catch (err) {
+    console.error("PDF生成中にエラー:", err);
     res.status(500).send("PDF生成中にエラーが発生しました");
   }
 });
