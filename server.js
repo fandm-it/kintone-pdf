@@ -26,14 +26,9 @@ app.post("/generate", async (req, res) => {
     const template = handlebars.compile(templateSource);
     const html = template(data);
 
-    // Chromiumのダウンロードとパス取得
-    const browserFetcher = puppeteer.createBrowserFetcher();
-    const revisionInfo = await browserFetcher.download("1108766"); // puppeteer@19.x の標準
-
-    // Puppeteer起動
+    // Puppeteer起動（Chromiumは puppeteer@19+ が自動ダウンロードする）
     const browser = await puppeteer.launch({
       headless: true,
-      executablePath: revisionInfo.executablePath,
       args: ["--no-sandbox", "--disable-setuid-sandbox"]
     });
 
