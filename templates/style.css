@@ -1,0 +1,17 @@
+body {
+  font-family: sans-serif;
+  margin: 40px;
+}
+
+.rank-box {
+  padding: 1em;
+  color: white;
+  font-weight: bold;
+}
+
+.rank-box.S { background-color: #4caf50; }
+.rank-box.A { background-color: #2196f3; }
+.rank-box.B { background-color: #ffc107; }
+.rank-box.C { background-color: #ff9800; }
+.rank-box.D { background-color: #f44336; }
+ 

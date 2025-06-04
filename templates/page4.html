@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Page 4</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <h1>{{company}} 組織診断</h1>
+  <p>会員番号：{{company_no}}</p>
+  <h2>各要素のスコア</h2>
+  <ul>
+    <li>リーダーシップ：{{renderStars leadership}}</li>
+    <li>スタッフの主体性：{{renderStars initiative}}</li>
+    <li>仕事のやりがい：{{renderStars motivation}}</li>
+    <li>チーム力：{{renderStars teamwork}}</li>
+    <li>評価と報酬：{{renderStars evaluation}}</li>
+    <li>チームの風土・環境：{{renderStars environment}}</li>
+  </ul>
+
+  <h2>総合ランク：{{overallRank}}</h2>
+  <div class="rank-box {{overallRank}}">
+    このランクに応じて背景色が変わります
+  </div>
+</body>
+</html>
+ 

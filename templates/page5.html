@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Page 5</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <h2>回答分布</h2>
+  <canvas id="distributionChart" width="600" height="300"></canvas>
+
+<script>
+  const ctx = document.getElementById('distributionChart').getContext('2d');
+
+  const s = {{distribution.S}};
+  const a = {{distribution.A}};
+  const b = {{distribution.B}};
+  const c = {{distribution.C}};
+  const d = {{distribution.D}};
+  const total = s + a + b + c + d;
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['全体'],
+      datasets: [
+        { label: 'S', data: [s], backgroundColor: '#4caf50' },
+        { label: 'A', data: [a], backgroundColor: '#8bc34a' },
+        { label: 'B', data: [b], backgroundColor: '#cddc39' },
+        { label: 'C', data: [c], backgroundColor: '#ff9800' },
+        { label: 'D', data: [d], backgroundColor: '#f44336' }
+      ]
+    },
+    options: {
+      indexAxis: 'y',
+      plugins: {
+        legend: { position: 'right' }
+      },
+      scales: {
+        x: {
+          stacked: true,
+          max: total
+        },
+        y: {
+          stacked: true
+        }
+      }
+    }
+  });
+</script>
+</body>
+</html>
