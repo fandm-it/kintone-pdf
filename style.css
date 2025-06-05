@@ -48,21 +48,27 @@ body {
   border-collapse: collapse;
   margin-top: 24px;
   font-size: 14px;
+  color: #333;
 }
 
 .evaluation-table th,
 .evaluation-table td {
-  border: 1px solid #ccc;
+  border: 1px solid #999;
   padding: 12px;
   text-align: left;
 }
 
 .evaluation-table th {
-  background-color: #e0e0e0;
+  background-color: #999;
+  color: white;
+  font-weight: bold;
 }
 
 .evaluation-table .highlight {
   background-color: #fee9d0;
   font-weight: bold;
-  border: 2px solid #f60;
+}
+
+.evaluation-table tr:not(.highlight):nth-child(even) {
+  background-color: #f3f3f3;
 }
