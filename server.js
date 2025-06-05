@@ -26,8 +26,10 @@ handlebars.registerHelper("isEqual", function (a, b, options) {
 async function generatePdfFromHtml(templateFileName, data) {
   const templatePath = path.join(__dirname, "templates", templateFileName);
   const templateSource = fs.readFileSync(templatePath, "utf8");
+  const stylePath = path.join(__dirname, "style.css");
+  const styleContent = fs.readFileSync(stylePath, "utf8");
   const template = handlebars.compile(templateSource);
-  const html = template(data);
+  const html = template({ ...data, injectedStyle: styleContent });
 
   const browser = await puppeteer.launch({
     headless: "new",
@@ -59,7 +61,7 @@ async function mergePdfBuffers(buffers) {
 }
 
 // 使用するテンプレートファイル名一覧
-const templateFiles = ["cover.html", "page4.html", "page5.html"]; // 増えたらここに追加
+const templateFiles = ["page4.html"]; // 増えたらここに追加
 
 app.post("/generate", async (req, res) => {
   try {
