@@ -91,70 +91,59 @@ const KINTONE_API_TOKEN = "YBkqHdz9WqUyCOm213oo7HSlgBb6w4xZC0D7SHG6"; // 環境�
 app.post("/kintone-upload", async (req, res) => {
   try {
     const data = req.body;
-
-    // ✅ 日付（作成日）を生成
+    const recordId = data.recordId;
     const today = new Date();
     const yyyy = today.getFullYear();
-    const mm = String(today.getMonth() + 1).padStart(2, "0");
-    const dd = String(today.getDate()).padStart(2, "0");
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
     const dateStr = `${yyyy}${mm}${dd}`;
 
-    // ✅ ファイル名用に company をサニタイズ
-    const sanitize = (s) => s.replace(/[\\/:*?"<>|()\[\]{}]/g, "").trim();
-    const safeCompany = sanitize(data.company || "会社名未設定");
+    // ファイル名を安全に作成
+    const sanitize = (s) => (s || "").replace(/[\\/:*?"<>|()\[\]{}]/g, "").trim();
+    const filename = `${sanitize(data.company)}(${data.company_no})_組織診断レポート${dateStr}.pdf`;
 
-    const filename = `${safeCompany}(${data.company_no})_組織診断レポート${dateStr}.pdf`;
-
-    // ✅ PDF生成
+    // PDF作成
     const pdfBuffers = await Promise.all(
       templateFiles.map((filename) => generatePdfFromHtml(filename, data))
     );
     const mergedBuffer = await mergePdfBuffers(pdfBuffers);
 
-    // ✅ ファイルアップロード用フォームデータ作成
+    // バッファをファイルとして扱う
     const form = new FormData();
     form.append("file", Buffer.from(mergedBuffer), {
       filename,
       contentType: "application/pdf",
     });
 
-    // ✅ Kintoneへファイルアップロード → fileKey取得
-    const fileUploadResp = await axios.post(
-      `${KINTONE_DOMAIN}/k/v1/file.json`,
-      form,
-      {
-        headers: {
-          ...form.getHeaders(),
-          "X-Cybozu-API-Token": KINTONE_API_TOKEN,
-        },
-      }
-    );
+    // ファイルアップロード
+    const fileResp = await axios.post(`${KINTONE_DOMAIN}/k/v1/file.json`, form, {
+      headers: {
+        ...form.getHeaders(),
+        "X-Cybozu-API-Token": KINTONE_API_TOKEN,
+      },
+    });
 
-    const fileKey = fileUploadResp.data.fileKey;
+    const fileKey = fileResp.data.fileKey;
 
-    // ✅ 添付フィールドにファイルを追加（レコード更新）
-    await axios.put(
-      `${KINTONE_DOMAIN}/k/v1/record.json`,
-      {
-        app: KINTONE_APP_ID,
-        id: data.recordId, // Zapierから送られてくるレコード番号
-        record: {
-          添付ファイル: {
-            value: [{ fileKey }],
-          },
+    // レコード更新
+    await axios.put(`${KINTONE_DOMAIN}/k/v1/record.json`, {
+      app: KINTONE_APP_ID,
+      id: recordId,
+      record: {
+        添付ファイル: {
+          value: [{ fileKey }],
         },
       },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          "X-Cybozu-API-Token": KINTONE_API_TOKEN,
-        },
-      }
-    );
+    }, {
+      headers: {
+        "Content-Type": "application/json",
+        "X-Cybozu-API-Token": KINTONE_API_TOKEN,
+      },
+    });
 
-    res.status(200).send("Kintoneにファイルを添付しました");
+    res.status(200).send("Kintoneへのファイル添付完了");
   } catch (err) {
     console.error("Kintoneアップロード失敗:", err.response?.data || err.message);
-    res.status(500).send("Kintoneへのファイル添付に失敗しました");
+    res.status(500).send("Kintoneアップロードエラー");
   }
 });
