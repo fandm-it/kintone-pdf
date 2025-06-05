@@ -115,6 +115,7 @@ body {
 
 .result-table {
   width: 100%;
+  table-layout: fixed; /* ← カラム幅を指定通りにする */
   border-collapse: collapse;
   font-size: 13px;
   color: #333;
@@ -127,7 +128,15 @@ body {
   padding: 8px;
   vertical-align: middle;
   text-align: left;
+  word-wrap: break-word;
+  word-break: break-word;
 }
+
+/* 各列の幅設定 */
+.result-table colgroup col:nth-child(1) { width: 5%; }
+.result-table colgroup col:nth-child(2) { width: 45%; } /* ← 設問列：左半分 */
+.result-table colgroup col:nth-child(3) { width: 40%; } /* ← 回答分布：広め */
+.result-table colgroup col:nth-child(4) { width: 10%; }
 
 .result-table th {
   background-color: #eee;
