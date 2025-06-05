@@ -55,9 +55,9 @@ body {
 
 .heading-line {
   border: none;
-  border-bottom: 1px solid #333;
-  width: fit-content;
-  max-width: 200px;     /* お好みで調整 */
+  border-bottom: 2px solid #333;
+  width: 160px;         /* ← 手動で確実に幅を指定 */
+  margin-top: 4px;
   margin-bottom: 24px;
 }
 
@@ -89,18 +89,19 @@ body {
 
 .criteria-list li {
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  gap: 12px;  /* ← スペースをgapで制御 */
   margin: 4px 0;
 }
 
 .criteria-list .label {
-  width: 60%;
-  text-align: left;
+  flex-shrink: 0;       /* 項目名を詰めすぎないように */
+  min-width: 180px;     /* 項目の最小幅（調整可） */
 }
 
 .criteria-list .stars {
-  width: 40%;
-  text-align: right;
+  text-align: left;     /* 左寄せで揃える */
+  white-space: nowrap;
 }
 
 .v-separator {
