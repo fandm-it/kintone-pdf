@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <title>Page 4</title>
   <link rel="stylesheet" href="../style.css" />
-
   <!-- ⭐ Webフォントを直接読み込む -->
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
   <style>
@@ -14,9 +13,7 @@
   </style>
 </head>
 <body>
-  <h1>{{company}} 組織診断</h1>
-  <p>会員番号：{{company_no}}</p>
-  <h2>各要素のスコア</h2>
+  <h1>総合評価</h1>
   <ul>
     <li>リーダーシップ：{{renderStars leadership}}</li>
     <li>スタッフの主体性：{{renderStars initiative}}</li>
@@ -35,11 +32,35 @@
       </tr>
     </thead>
     <tbody>
-      <tr class="rank-s"><td>90～100点</td><td>S</td><td>非常に優れた組織...</td></tr>
-      <tr class="rank-a"><td>75～89点</td><td>A</td><td>良好な組織だが...</td></tr>
-      <tr class="rank-b"><td>60～74点</td><td>B</td><td>平均的な状態...</td></tr>
-      <tr class="rank-c"><td>40～59点</td><td>C</td><td>課題が多く...</td></tr>
-      <tr class="rank-d"><td>0～39点</td><td>D</td><td>重大な問題あり...</td></tr>
+      {{#isEqual overallRank "S"}}
+        <tr class="highlight"><td>90～100点</td><td>S</td><td>非常に優れた組織。強みを活かしつつ成長を続ける状態。</td></tr>
+      {{else}}
+        <tr><td>90～100点</td><td>S</td><td>非常に優れた組織。強みを活かしつつ成長を続ける状態。</td></tr>
+      {{/isEqual}}
+
+      {{#isEqual overallRank "A"}}
+        <tr class="highlight"><td>75～89点</td><td>A</td><td>良好な組織だが、一部改善の余地あり。</td></tr>
+      {{else}}
+        <tr><td>75～89点</td><td>A</td><td>良好な組織だが、一部改善の余地あり。</td></tr>
+      {{/isEqual}}
+
+      {{#isEqual overallRank "B"}}
+        <tr class="highlight"><td>60～74点</td><td>B</td><td>平均的な状態。課題を特定し改善するとさらに良くなる。</td></tr>
+      {{else}}
+        <tr><td>60～74点</td><td>B</td><td>平均的な状態。課題を特定し改善するとさらに良くなる。</td></tr>
+      {{/isEqual}}
+
+      {{#isEqual overallRank "C"}}
+        <tr class="highlight"><td>40～59点</td><td>C</td><td>課題が多く、組織改善が必要な状態。</td></tr>
+      {{else}}
+        <tr><td>40～59点</td><td>C</td><td>課題が多く、組織改善が必要な状態。</td></tr>
+      {{/isEqual}}
+
+      {{#isEqual overallRank "D"}}
+        <tr class="highlight"><td>0～39点</td><td>D</td><td>重大な問題あり。早急な対策が必要。</td></tr>
+      {{else}}
+        <tr><td>0～39点</td><td>D</td><td>重大な問題あり。早急な対策が必要。</td></tr>
+      {{/isEqual}}
     </tbody>
   </table>
 </body>

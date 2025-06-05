@@ -17,6 +17,11 @@ handlebars.registerHelper("renderStars", function (score) {
   return full + empty;
 });
 
+// ランク一致判定ヘルパー（行をハイライトする用）
+handlebars.registerHelper("isEqual", function (a, b, options) {
+  return a === b ? options.fn(this) : options.inverse(this);
+});
+
 // HTML → PDFバッファ生成関数
 async function generatePdfFromHtml(templateFileName, data) {
   const templatePath = path.join(__dirname, "templates", templateFileName);
