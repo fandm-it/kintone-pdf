@@ -46,29 +46,88 @@ body {
 .evaluation-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 24px;
   font-size: 14px;
-  color: #333;
+  color: #404040;
 }
 
 .evaluation-table th,
 .evaluation-table td {
-  border: 1px solid #999;
-  padding: 12px;
+  border: 1px solid #ffffff; /* セルの境界線を白に */
+  padding: 10px 12px;
   text-align: left;
 }
 
 .evaluation-table th {
-  background-color: #999;
-  color: white;
+  background-color: #A5A5A5;
+  color: #ffffff;
   font-weight: bold;
+}
+
+.evaluation-table tbody tr:nth-child(even) {
+  background-color: #F0F0F0;
+}
+
+.evaluation-table tbody tr:nth-child(odd) {
+  background-color: #E1E1E1;
 }
 
 .evaluation-table .highlight {
-  background-color: #fee9d0;
+  background-color: #FBE5D6 !important;
+  color: #404040;
   font-weight: bold;
 }
 
-.evaluation-table tr:not(.highlight):nth-child(even) {
-  background-color: #f3f3f3;
+.heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.icon-bar {
+  width: 6px;
+  height: 24px;
+  background-color: #e53935; /* 赤色 */
+}
+
+.heading-line {
+  border: none;
+  border-bottom: 1px solid #333;
+  margin-bottom: 24px;
+}
+
+.rank-summary {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.overallRank {
+  border-collapse: collapse;
+  width: 300px;
+}
+
+.overallRank th,
+.overallRank td {
+  border: 1px solid #999;
+  padding: 8px 12px;
+  text-align: left;
+}
+
+.criteria-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.criteria-list li {
+  margin: 6px 0;
+}
+
+.v-separator {
+  width: 1px;
+  background-color: #999;
+  height: 140px;
+  margin-top: 4px;
 }

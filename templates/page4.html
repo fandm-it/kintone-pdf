@@ -11,17 +11,38 @@
   </style>
 </head>
 <body>
-  <h1>総合評価</h1>
-  <h2>総合ランク：{{overallRank}}</h2>
-  <h2>総合スコア：{{overallScore}}</h2>
-  <ul>
-    <li>リーダーシップ：{{renderStars leadership}}</li>
-    <li>スタッフの主体性：{{renderStars initiative}}</li>
-    <li>仕事のやりがい：{{renderStars motivation}}</li>
-    <li>チーム力：{{renderStars teamwork}}</li>
-    <li>評価と報酬：{{renderStars evaluation}}</li>
-    <li>チームの風土・環境：{{renderStars environment}}</li>
-  </ul>
+  <div class="heading">
+    <div class="icon-bar"></div>
+    <h1>総合評価</h1>
+  </div>
+  <hr class="heading-line" />
+  <div class="rank-summary">
+    <table class="overallRank">
+      <thead>
+        <tr>
+          <th>総合ランク</th>
+          <th>総合スコア</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{overallRank}}</td>
+          <td>{{overallScore}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="v-separator"></div>
+
+    <ul class="criteria-list">
+      <li>リーダーシップ：{{renderStars leadership}}</li>
+      <li>スタッフの主体性：{{renderStars initiative}}</li>
+      <li>仕事のやりがい：{{renderStars motivation}}</li>
+      <li>チーム力：{{renderStars teamwork}}</li>
+      <li>評価と報酬：{{renderStars evaluation}}</li>
+      <li>チームの風土・環境：{{renderStars environment}}</li>
+    </ul>
+  </div>
 
   <table class="evaluation-table">
     <thead>
