@@ -42,3 +42,37 @@ body {
 .footer-logo img {
   height: 50px;
 }
+
+.evaluation-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 24px;
+  font-size: 14px;
+}
+
+.evaluation-table th,
+.evaluation-table td {
+  border: 1px solid #ccc;
+  padding: 12px;
+  text-align: left;
+}
+
+.evaluation-table th {
+  background-color: #e0e0e0;
+}
+
+.rank-a {
+  background-color: #fee9d0;
+}
+
+.rank-b {
+  background-color: #f7f7f7;
+}
+
+.rank-c {
+  background-color: #eeeeee;
+}
+
+.rank-d {
+  background-color: #dddddd;
+}

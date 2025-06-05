@@ -26,9 +26,21 @@
     <li>チームの風土・環境：{{renderStars environment}}</li>
   </ul>
 
-  <h2>総合ランク：{{overallRank}}</h2>
-  <div class="rank-box {{overallRank}}">
-    このランクに応じて背景色が変わります
-  </div>
+  <table class="evaluation-table">
+    <thead>
+      <tr>
+        <th>総合スコア</th>
+        <th>ランク</th>
+        <th>評価コメント</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="rank-s"><td>90～100点</td><td>S</td><td>非常に優れた組織...</td></tr>
+      <tr class="rank-a"><td>75～89点</td><td>A</td><td>良好な組織だが...</td></tr>
+      <tr class="rank-b"><td>60～74点</td><td>B</td><td>平均的な状態...</td></tr>
+      <tr class="rank-c"><td>40～59点</td><td>C</td><td>課題が多く...</td></tr>
+      <tr class="rank-d"><td>0～39点</td><td>D</td><td>重大な問題あり...</td></tr>
+    </tbody>
+  </table>
 </body>
 </html>
