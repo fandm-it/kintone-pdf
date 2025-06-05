@@ -62,7 +62,7 @@ async function mergePdfBuffers(buffers) {
 }
 
 // 使用するテンプレートファイル名一覧
-const templateFiles = ["page4.html"]; // 増えたらここに追加
+const templateFiles = ["page4.html", "page5.html"]; // 増えたらここに追加
 
 app.post("/generate", async (req, res) => {
   try {
