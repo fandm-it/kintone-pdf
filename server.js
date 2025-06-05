@@ -86,3 +86,58 @@ app.post("/generate", async (req, res) => {
 app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
+
+
+// Kintone設定（あなたの環境に合わせて）
+const KINTONE_DOMAIN = "https://fmitpjt.cybozu.com";
+const KINTONE_APP_ID = "3311"; // アプリID
+const KINTONE_API_TOKEN = "YBkqHdz9WqUyCOm213oo7HSlgBb6w4xZC0D7SHG6"; // アプリに発行したAPIトークン
+
+app.post("/kintone-upload", async (req, res) => {
+  try {
+    const data = req.body;
+
+    // 1. PDFバッファ作成
+    const pdfBuffers = await Promise.all(
+      templateFiles.map((filename) => generatePdfFromHtml(filename, data))
+    );
+    const mergedBuffer = await mergePdfBuffers(pdfBuffers);
+
+    // 2. バッファをファイルとして扱う
+    const form = new FormData();
+    form.append("file", Buffer.from(mergedBuffer), {
+      filename: "report.pdf",
+      contentType: "application/pdf",
+    });
+
+    // 3. Kintoneへファイルアップロード（fileKey取得）
+    const fileUploadResp = await axios.post(`${KINTONE_DOMAIN}/k/v1/file.json`, form, {
+      headers: {
+        ...form.getHeaders(),
+        "X-Cybozu-API-Token": KINTONE_API_TOKEN,
+      },
+    });
+
+    const fileKey = fileUploadResp.data.fileKey;
+
+    // 4. レコード登録または更新（添付フィールドコードは '添付ファイル' と仮定）
+    await axios.post(`${KINTONE_DOMAIN}/k/v1/record.json`, {
+      app: KINTONE_APP_ID,
+      record: {
+        添付ファイル: {
+          value: [{ fileKey }],
+        },
+      },
+    }, {
+      headers: {
+        "Content-Type": "application/json",
+        "X-Cybozu-API-Token": KINTONE_API_TOKEN,
+      },
+    });
+
+    res.status(200).send("Kintoneにファイルをアップロードしました");
+  } catch (err) {
+    console.error("Kintoneアップロード失敗:", err.response?.data || err.message);
+    res.status(500).send("Kintoneへのアップロードに失敗しました");
+  }
+});

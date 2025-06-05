@@ -144,6 +144,12 @@ body {
   text-align: center;
 }
 
+/* 平均点列の中央揃え */
+.result-table td:last-child,
+.result-table th:last-child {
+  text-align: center;
+}
+
 .bar-container {
   display: flex;
   width: 100%;
