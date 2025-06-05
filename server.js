@@ -117,14 +117,10 @@ app.post("/kintone-upload", async (req, res) => {
     // レコード更新
     await axios.put(`${KINTONE_DOMAIN}/k/v1/record.json`, {
       app: KINTONE_APP_ID,
-      id: recordId,
+      id: data.recordId,  // ← ここで recordId を指定
       record: {
         添付ファイル: {
-          value: [
-            {
-              fileKey,
-            },
-          ],
+          value: [{ fileKey }],
         },
       },
     }, {
