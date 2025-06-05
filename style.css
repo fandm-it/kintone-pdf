@@ -40,11 +40,14 @@ body {
   font-weight: bold;
 }
 
+.heading-block {
+  display: inline-block;       /* 横幅を内容に合わせる */
+}
+
 .heading {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 4px;
 }
 
 .icon-bar {
@@ -56,9 +59,8 @@ body {
 .heading-line {
   border: none;
   border-bottom: 2px solid #333;
-  width: 160px;         /* ← 手動で確実に幅を指定 */
-  margin-top: 4px;
-  margin-bottom: 24px;
+  width: 160px;               /* ← 線の長さ（お好みで変更可） */
+  margin: 4px 0 24px 0;       /* 上右下左の順で余白 */
 }
 
 .rank-summary {
