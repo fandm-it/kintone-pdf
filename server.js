@@ -82,7 +82,8 @@ app.post("/kintone-upload", async (req, res) => {
     const dd = String(today.getDate()).padStart(2, "0");
     const dateStr = `${yyyy}${mm}${dd}`;
     const sanitize = (s) => (s || "").replace(/[\\/:*?"<>|()\[\]{}]/g, "").trim();
-    const filename = `${sanitize(data.company)}_組織診断レポート${dateStr}.pdf`;
+    const safeCompany = sanitize(data.company);
+    const filename = `${safeCompany}(${data.company_no})_組織診断レポート${dateStr}.pdf`;
 
     // PDF作成
     const pdfBuffers = await Promise.all(templateFiles.map(f => generatePdfFromHtml(f, data)));
