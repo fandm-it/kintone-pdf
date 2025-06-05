@@ -1,28 +1,31 @@
+// server.js
 const express = require("express");
 const fs = require("fs");
 const path = require("path");
 const puppeteer = require("puppeteer");
 const handlebars = require("handlebars");
 const { PDFDocument } = require("pdf-lib");
+const axios = require("axios");
+const FormData = require("form-data");
 
 const app = express();
 app.use(express.json());
 
 const PORT = process.env.PORT || 3000;
 
-// ★ 星評価ヘルパー
+// ⭐ 星表示ヘルパー
 handlebars.registerHelper("renderStars", function (score) {
   const full = "★".repeat(score);
   const empty = "☆".repeat(5 - score);
   return full + empty;
 });
 
-// ランク一致判定ヘルパー（行をハイライトする用）
+// ☑ ランク一致判定ヘルパー
 handlebars.registerHelper("isEqual", function (a, b, options) {
   return a === b ? options.fn(this) : options.inverse(this);
 });
 
-// HTML → PDFバッファ生成関数
+// HTML→PDFバッファ生成
 async function generatePdfFromHtml(templateFileName, data) {
   const templatePath = path.join(__dirname, "templates", templateFileName);
   const templateSource = fs.readFileSync(templatePath, "utf8");
@@ -41,7 +44,7 @@ async function generatePdfFromHtml(templateFileName, data) {
   const pdfBuffer = await page.pdf({
     format: "A4",
     landscape: true,
-    printBackground: true
+    printBackground: true,
   });
 
   await browser.close();
@@ -51,81 +54,77 @@ async function generatePdfFromHtml(templateFileName, data) {
 // PDF結合
 async function mergePdfBuffers(buffers) {
   const mergedPdf = await PDFDocument.create();
-
   for (const buffer of buffers) {
     const pdf = await PDFDocument.load(buffer);
     const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
     copiedPages.forEach((page) => mergedPdf.addPage(page));
   }
-
   return await mergedPdf.save();
 }
 
-// 使用するテンプレートファイル名一覧
-const templateFiles = ["page4.html", "page5.html"]; // 増えたらここに追加
+// 使用テンプレート
+const templateFiles = ["page4.html", "page5.html"];
 
+// 通常PDF出力（ダウンロード）
 app.post("/generate", async (req, res) => {
   try {
     const data = req.body;
-
-    // 各テンプレートに対してPDFバッファを生成
     const pdfBuffers = await Promise.all(
       templateFiles.map((filename) => generatePdfFromHtml(filename, data))
     );
-
     const mergedBuffer = await mergePdfBuffers(pdfBuffers);
-
     res.setHeader("Content-Type", "application/pdf");
     res.send(Buffer.from(mergedBuffer));
   } catch (err) {
-    console.error("PDF生成中にエラー:", err);
+    console.error("PDF生成エラー:", err);
     res.status(500).send("PDF生成中にエラーが発生しました");
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
-});
-
-
-// Kintone設定（あなたの環境に合わせて）
+// -----------------------------
+// Kintoneアップロード機能
+// -----------------------------
 const KINTONE_DOMAIN = "https://fmitpjt.cybozu.com";
 const KINTONE_APP_ID = "3311"; // アプリID
-const KINTONE_API_TOKEN = "YBkqHdz9WqUyCOm213oo7HSlgBb6w4xZC0D7SHG6"; // アプリに発行したAPIトークン
+const KINTONE_API_TOKEN = "YBkqHdz9WqUyCOm213oo7HSlgBb6w4xZC0D7SHG6"; // 環境に合わせて
 
 app.post("/kintone-upload", async (req, res) => {
   try {
     const data = req.body;
+    const recordId = data.recordId;
 
-    // 1. PDFバッファ作成
+    // PDF作成
     const pdfBuffers = await Promise.all(
       templateFiles.map((filename) => generatePdfFromHtml(filename, data))
     );
     const mergedBuffer = await mergePdfBuffers(pdfBuffers);
 
-    // 2. バッファをファイルとして扱う
+    // ファイルアップロード
     const form = new FormData();
     form.append("file", Buffer.from(mergedBuffer), {
       filename: "report.pdf",
       contentType: "application/pdf",
     });
 
-    // 3. Kintoneへファイルアップロード（fileKey取得）
-    const fileUploadResp = await axios.post(`${KINTONE_DOMAIN}/k/v1/file.json`, form, {
+    const fileResp = await axios.post(`${KINTONE_DOMAIN}/k/v1/file.json`, form, {
       headers: {
         ...form.getHeaders(),
         "X-Cybozu-API-Token": KINTONE_API_TOKEN,
       },
     });
+    const fileKey = fileResp.data.fileKey;
 
-    const fileKey = fileUploadResp.data.fileKey;
-
-    // 4. レコード登録または更新（添付フィールドコードは '添付ファイル' と仮定）
-    await axios.post(`${KINTONE_DOMAIN}/k/v1/record.json`, {
+    // レコード更新
+    await axios.put(`${KINTONE_DOMAIN}/k/v1/record.json`, {
       app: KINTONE_APP_ID,
+      id: recordId,
       record: {
         添付ファイル: {
-          value: [{ fileKey }],
+          value: [
+            {
+              fileKey,
+            },
+          ],
         },
       },
     }, {
@@ -135,9 +134,13 @@ app.post("/kintone-upload", async (req, res) => {
       },
     });
 
-    res.status(200).send("Kintoneにファイルをアップロードしました");
+    res.status(200).send("Kintoneへのファイル添付完了");
   } catch (err) {
     console.error("Kintoneアップロード失敗:", err.response?.data || err.message);
-    res.status(500).send("Kintoneへのアップロードに失敗しました");
+    res.status(500).send("Kintoneアップロードエラー");
   }
+});
+
+app.listen(PORT, () => {
+  console.log(`\uD83D\uDE80 Server running on http://localhost:${PORT}`);
 });
