@@ -1,9 +1,85 @@
 body {
   font-family: 'Noto Sans JP', sans-serif;
   margin: 0;
-  padding: 0;
+  padding: 40px;
   background-color: white;
   color: #333;
+}
+
+.cover {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.cover-content {
+  position: absolute;
+  top: 25%;
+  left: 10%;
+}
+
+.cover-content h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.cover-content .small {
+  font-size: 16px;
+  margin: 4px 0;
+}
+
+/* 四隅の角線 */
+.corner {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+}
+
+.corner::before,
+.corner::after {
+  content: "";
+  position: absolute;
+  background-color: #000;
+}
+
+.corner.top-left::before {
+  top: 0; left: 0;
+  width: 30px; height: 2px;
+}
+
+.corner.top-left::after {
+  top: 0; left: 0;
+  width: 2px; height: 30px;
+}
+
+.corner.top-right::before {
+  top: 0; right: 0;
+  width: 30px; height: 2px;
+}
+
+.corner.top-right::after {
+  top: 0; right: 0;
+  width: 2px; height: 30px;
+}
+
+.corner.bottom-left::before {
+  bottom: 0; left: 0;
+  width: 30px; height: 2px;
+}
+
+.corner.bottom-left::after {
+  bottom: 0; left: 0;
+  width: 2px; height: 30px;
+}
+
+.corner.bottom-right::before {
+  bottom: 0; right: 0;
+  width: 30px; height: 2px;
+}
+
+.corner.bottom-right::after {
+  bottom: 0; right: 0;
+  width: 2px; height: 30px;
 }
 
 .evaluation-table {

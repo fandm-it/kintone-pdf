@@ -1,27 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>組織診断レポート表紙</title>
-  <link rel="stylesheet" href="../style.css" />
+  <meta charset="UTF-8" />
+  <title>表紙</title>
   <!-- ⭐ Webフォントを直接読み込む -->
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
+  <!-- ⭐ 組み込みCSS（PDFにも確実に反映） -->
   <style>
-    body {
-      font-family: 'Noto Sans JP', sans-serif;
-    }
+    {{{injectedStyle}}}
   </style>
 </head>
-<body class="cover">
-  <div class="cover-container">
-    <h1 class="report-title">組織診断レポート</h1>
-    <div class="company-info">
-      <p class="company-name">{{company}}</p>
-      <p class="company-no">会員番号：{{company_no}}</p>
-      <p class="created-date">作成日：{{created_date}}</p>
-    </div>
-    <div class="footer-logo">
-      <img src="https://example.com/logo.png" alt="ロゴ" />
+<body>
+  <div class="cover">
+    <!-- 四隅のL字ライン -->
+    <div class="corner top-left"></div>
+    <div class="corner top-right"></div>
+    <div class="corner bottom-left"></div>
+    <div class="corner bottom-right"></div>
+
+    <!-- メインコンテンツ -->
+    <div class="cover-content">
+      <h1>組織診断報告レポート</h1>
+      <p class="small">会員番号：{{company_no}}</p>
+      <p class="small">{{company}}</p>
+      <p class="small">{{today}}</p>
     </div>
   </div>
 </body>

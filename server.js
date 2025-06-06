@@ -17,7 +17,7 @@ handlebars.registerHelper("renderStars", (score) => "★".repeat(score) + "☆".
 handlebars.registerHelper("isEqual", (a, b, options) => a === b ? options.fn(this) : options.inverse(this));
 
 // テンプレート一覧
-const templateFiles = ["page4.html", "page5.html"];
+const templateFiles = ["cover.html", "page4.html", "page5.html"];
 
 // HTML → PDF化
 async function generatePdfFromHtml(templateFileName, data) {
@@ -83,7 +83,7 @@ app.post("/kintone-upload", async (req, res) => {
     const dateStr = `${yyyy}${mm}${dd}`;
     const sanitize = (s) => (s || "").replace(/[\\/:*?"<>|()\[\]{}]/g, "").trim();
     const safeCompany = sanitize(data.company);
-    const filename = `${safeCompany}(${data.company_no})_組織診断レポート${dateStr}.pdf`;
+    const filename = `${safeCompany}(${data.company_no})${data.address}_組織診断レポート_${dateStr}.pdf`;
 
     // PDF作成
     const pdfBuffers = await Promise.all(templateFiles.map(f => generatePdfFromHtml(f, data)));
