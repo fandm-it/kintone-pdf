@@ -11,20 +11,25 @@
   </style>
 </head>
 <body>
-  <div class="cover">
-    <!-- 四隅のL字ライン -->
-    <div class="corner top-left"></div>
-    <div class="corner top-right"></div>
-    <div class="corner bottom-left"></div>
-    <div class="corner bottom-right"></div>
-
-    <!-- メインコンテンツ -->
-    <div class="cover-content">
-      <h1>組織診断報告レポート</h1>
-      <p class="small">会員番号：{{company_no}}</p>
-      <p class="small">{{company}}</p>
-      <p class="small">{{displayDate}}</p>
+  <div class="container">
+    <div>
+      <div class="top-border"></div>
+      <div class="title-area">
+        <h1>組織診断レポート</h1>
+        <p>{{company}} {{address}}</p>
+      </div>
     </div>
+
+    <div class="arrow">
+      <img src="arrow.png" alt="arrow background">
+    </div>
+
+    <div class="meta-area">
+      <div>作成日 ：　{{displayDate}}</div>
+      <div>実施人数 ：　{{participants}}名</div>
+      <div>実施回数 ：　第{{iteration}}回</div>
+    </div>
+    <div class="bottom-border"></div>
   </div>
 </body>
 </html>
