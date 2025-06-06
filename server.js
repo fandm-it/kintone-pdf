@@ -40,7 +40,12 @@ async function generatePdfFromHtml(templateFileName, data) {
   });
   const page = await browser.newPage();
   await page.setContent(html, { waitUntil: "networkidle0" });
-  const pdfBuffer = await page.pdf({ format: "A4", landscape: true, printBackground: true });
+  const pdfBuffer = await page.pdf({ 
+    format: "A4",
+    landscape: true, 
+    printBackground: true,
+    preferCSSPageSize: true
+  });
   await browser.close();
 
   return pdfBuffer;

@@ -10,9 +10,11 @@ body {
 .cover-page {
   padding: 60px;
   position: relative;
-  min-height: 100vh;
+  height: 100vh;
   box-sizing: border-box;
   background-color: white;
+  display: flex; 
+  flex-direction: column;
 }
 
 .cover-top-border,
@@ -49,7 +51,8 @@ body {
   padding: 12px 20px;
   font-size: 16px;
   color: #222;
-  margin-top: 100px;
+  margin-top: auto;
+  margin-bottom: 40px;
 }
 
 .cover-arrow {
