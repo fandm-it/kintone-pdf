@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>目次</title>
+  <!-- ⭐ Webフォントを直接読み込む -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
+  <!-- ⭐ 組み込みCSS（PDFにも確実に反映） -->
+  <style>
+    {{{injectedStyle}}}
+  </style>
+</head>
+<body>
+  <div class="common-page">
+    <!-- 上部装飾線（太→細） -->
+    <div class="page-border-top">
+      <div class="line-thick"></div>
+      <div class="line-thin"></div>
+    </div>
+
+    <!-- 左上見出し（項目番号 + タイトル） -->
+    <div class="page-heading">
+      <div class="heading-text">目次</div>
+    </div>
+
+    <!-- 矢印画像（カバーページ・目次のみ） -->
+    <div class="page-arrow">
+      <img src="{{arrow}}" alt="arrow background">
+    </div>
+
+    <!-- 目次リスト -->
+    <div class="toc-content">
+      <ul>
+        <li><span class="toc-number">01</span> - はじめに</li>
+        <li><span class="toc-number">02</span> - 総合評価</li>
+        <li><span class="toc-number">03</span> - 各項目の評価</li>
+        <li><span class="toc-number">04</span> - 貴社の強み</li>
+        <li><span class="toc-number">05</span> - 強みを活かした取り組み</li>
+        <li><span class="toc-number">06</span> - 貴社の弱み</li>
+        <li><span class="toc-number">07</span> - 弱みを補う取り組み</li>
+        <li><span class="toc-number">08</span> - ハーズバーグの二要因理論とは？</li>
+        <li><span class="toc-number">09</span> - 二要因理論に基づく分析</li>
+        <li><span class="toc-number">10</span> - 回答の集計結果</li>
+        <li><span class="toc-number">11</span> - おすすめのサービス</li>
+      </ul>
+    </div>
+
+    <!-- 下部装飾線（細→太） -->
+    <div class="page-border-bottom">
+      <div class="line-thin"></div>
+      <div class="line-thick"></div>
+    </div>
+
+    <!-- ページ番号（右下） -->
+    <div class="page-footer">
+      <span>{{pageNumber}}</span>
+    </div>
+  </div>
+</body>
+</html>

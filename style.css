@@ -1,30 +1,103 @@
-body {
+/* === 共通ページ === */
+.common-page {
   font-family: 'Noto Sans JP', sans-serif;
-  margin: 0;
-  padding: 40px;
-  background-color: white;
-  color: #333;
-}
-
-/* === Cover Page === */
-.cover-page {
-  padding: 60px;
-  position: relative;
+  padding: 48px 60px;
   height: 100vh;
   box-sizing: border-box;
-  background-color: white;
-  display: flex; 
+  display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  background-color: white;
+  font-size: 16px;
+  color: #222;
 }
 
-.cover-top-border,
-.cover-bottom-border {
+/* 上部装飾線 */
+.page-border-top .line-thick {
   border-top: 3px solid #333;
-  border-bottom: 1px solid #333;
-  height: 6px;
-  width: 100%;
+  height: 3px;
 }
 
+.page-border-top .line-thin {
+  border-top: 1px solid #333;
+  height: 1px;
+}
+
+/* 下部装飾線 */
+.page-border-bottom .line-thin {
+  border-top: 1px solid #333;
+  height: 1px;
+}
+
+.page-border-bottom .line-thick {
+  border-top: 3px solid #333;
+  height: 3px;
+}
+
+/* 左上の項目番号とタイトル */
+.page-heading {
+  display: flex;
+  align-items: center;
+  margin: 24px 0;
+  font-weight: bold;
+}
+
+.heading-number {
+  background-color: #000;
+  color: #fff;
+  padding: 4px 12px;
+  font-size: 18px;
+  margin-right: 8px;
+}
+
+.heading-text {
+  font-size: 20px;
+}
+
+/* ページ本文 */
+.page-content p {
+  margin: 16px 0;
+  line-height: 1.6;
+}
+
+.page-image img {
+  max-width: 100%;
+  margin-top: 32px;
+}
+
+/* カラータグ */
+.tag { font-weight: bold; }
+.tag-red { color: #E03C31; }
+.tag-orange { color: #F28C28; }
+.tag-yellow { color: #FBB040; }
+.tag-green { color: #5BA829; }
+.tag-teal { color: #3FA9F5; }
+.tag-purple { color: #8664C6; }
+
+/* ページ番号右下 */
+.page-footer {
+  position: absolute;
+  right: 60px;
+  bottom: 20px;
+  font-size: 14px;
+}
+
+/* 画像 */
+.page-arrow {
+  position: absolute;
+  top: 150px;
+  right: 80px;
+  opacity: 0.05;
+  z-index: 0;
+}
+
+.page-arrow img {
+  width: 300px;
+}
+
+
+/* === Cover Page 専用 === */
 .cover-title-area {
   margin-top: 60px;
   margin-left: 20px;
@@ -55,17 +128,32 @@ body {
   margin-bottom: 40px;
 }
 
-.cover-arrow {
-  position: absolute;
-  top: 150px;
-  right: 80px;
-  opacity: 0.05;
-  z-index: 0;
+
+/* === 目次ページ用 === */
+.toc-content {
+  margin-top: 48px;
 }
 
-.cover-arrow img {
-  width: 300px;
+.toc-content ul {
+  list-style: none;
+  padding-left: 0;
+  font-size: 16px;
+  line-height: 2;
 }
+
+.toc-content li {
+  display: flex;
+  gap: 12px;
+}
+
+.toc-number {
+  display: inline-block;
+  width: 32px;
+  text-align: right;
+  font-weight: bold;
+  font-feature-settings: 'tnum';
+}
+
 
 
 .evaluation-table {
