@@ -66,7 +66,17 @@ async function mergePdfBuffers(buffers) {
 app.post("/generate", async (req, res) => {
   try {
     const data = req.body;
-    const pdfBuffers = await Promise.all(templateFiles.map(f => generatePdfFromHtml(f, data)));
+
+    // 🔍 Base64画像が含まれているか確認
+    console.log("🖼️ arrow base64 prefix:", (data.arrow || "").substring(0, 30));
+
+    const pdfBuffers = [];
+    for (const file of templateFiles) {
+      console.log(`▶ Generating PDF from: ${file}`);
+      const buf = await generatePdfFromHtml(file, data); // ← ここでエラーならどのテンプレートか特定可
+      pdfBuffers.push(buf);
+    }
+
     const merged = await mergePdfBuffers(pdfBuffers);
     res.setHeader("Content-Type", "application/pdf");
     res.send(Buffer.from(merged));
