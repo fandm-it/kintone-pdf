@@ -54,28 +54,15 @@ async function mergePdfBuffers(buffers) {
 // ▼ `/generate` (PDF単独返却)
 app.post("/generate", async (req, res) => {
   try {
-    const today = new Date();
-    const formattedDate = today.toLocaleDateString("ja-JP", {
-      year: "numeric",
-      month: "long",
-      day: "numeric"
-    }); // → 例: "2025年6月6日"
-
-    const data = {
-      ...req.body,
-      today: formattedDate
-    };
-
-    const pdfBuffers = await Promise.all(
-      templateFiles.map((filename) => generatePdfFromHtml(filename, data))
-    );
-
-    const mergedBuffer = await mergePdfBuffers(pdfBuffers);
+    const data = req.body;
+    data.today = displayDate;
+    const pdfBuffers = await Promise.all(templateFiles.map(f => generatePdfFromHtml(f, data)));
+    const merged = await mergePdfBuffers(pdfBuffers);
     res.setHeader("Content-Type", "application/pdf");
-    res.send(Buffer.from(mergedBuffer));
-  } catch (err) {
-    console.error("PDF生成中にエラー:", err);
-    res.status(500).send("PDF生成中にエラーが発生しました");
+    res.send(Buffer.from(merged));
+  } catch (e) {
+    console.error("PDF生成失敗:", e);
+    res.status(500).send("PDF生成中にエラー");
   }
 });
 
@@ -89,12 +76,13 @@ app.post("/kintone-upload", async (req, res) => {
     const data = req.body;
     const recordId = data.recordId;
 
-    // ファイル名
     const today = new Date();
     const yyyy = today.getFullYear();
     const mm = String(today.getMonth() + 1).padStart(2, "0");
     const dd = String(today.getDate()).padStart(2, "0");
     const dateStr = `${yyyy}${mm}${dd}`;
+    const displayDate = `${yyyy}年${mm}月${dd}日`;
+    // ファイル名
     const sanitize = (s) => (s || "").replace(/[\\/:*?"<>|()\[\]{}]/g, "").trim();
     const safeCompany = sanitize(data.company);
     const filename = `${safeCompany}(${data.company_no})${data.address}_組織診断レポート_${dateStr}.pdf`;

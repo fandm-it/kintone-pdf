@@ -42,44 +42,82 @@ body {
   background-color: #000;
 }
 
+/* 各角ごとに位置を指定 */
+
+.corner.top-left {
+  top: 0;
+  left: 0;
+}
+
 .corner.top-left::before {
-  top: 0; left: 0;
-  width: 30px; height: 2px;
+  top: 0;
+  left: 0;
+  width: 30px;
+  height: 2px;
 }
 
 .corner.top-left::after {
-  top: 0; left: 0;
-  width: 2px; height: 30px;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 30px;
+}
+
+.corner.top-right {
+  top: 0;
+  right: 0;
 }
 
 .corner.top-right::before {
-  top: 0; right: 0;
-  width: 30px; height: 2px;
+  top: 0;
+  right: 0;
+  width: 30px;
+  height: 2px;
 }
 
 .corner.top-right::after {
-  top: 0; right: 0;
-  width: 2px; height: 30px;
+  top: 0;
+  right: 0;
+  width: 2px;
+  height: 30px;
+}
+
+.corner.bottom-left {
+  bottom: 0;
+  left: 0;
 }
 
 .corner.bottom-left::before {
-  bottom: 0; left: 0;
-  width: 30px; height: 2px;
+  bottom: 0;
+  left: 0;
+  width: 30px;
+  height: 2px;
 }
 
 .corner.bottom-left::after {
-  bottom: 0; left: 0;
-  width: 2px; height: 30px;
+  bottom: 0;
+  left: 0;
+  width: 2px;
+  height: 30px;
+}
+
+.corner.bottom-right {
+  bottom: 0;
+  right: 0;
 }
 
 .corner.bottom-right::before {
-  bottom: 0; right: 0;
-  width: 30px; height: 2px;
+  bottom: 0;
+  right: 0;
+  width: 30px;
+  height: 2px;
 }
 
 .corner.bottom-right::after {
-  bottom: 0; right: 0;
-  width: 2px; height: 30px;
+  bottom: 0;
+  right: 0;
+  width: 2px;
+  height: 30px;
 }
 
 .evaluation-table {
