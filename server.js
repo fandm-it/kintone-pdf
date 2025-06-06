@@ -25,8 +25,14 @@ async function generatePdfFromHtml(templateFileName, data) {
   const stylePath = path.join(__dirname, "style.css");
   const templateSource = fs.readFileSync(templatePath, "utf8");
   const styleContent = fs.readFileSync(stylePath, "utf8");
+  const base64Images = require("./assets/base64-images.json");
+
   const template = handlebars.compile(templateSource);
-  const html = template({ ...data, injectedStyle: styleContent });
+  const html = template({ 
+    ...data,
+    injectedStyle: styleContent,
+    ...base64Images // ← ★ ここで全画像をテンプレートに展開
+  });
 
   const browser = await puppeteer.launch({
     headless: "new",
