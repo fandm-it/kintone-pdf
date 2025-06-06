@@ -31,7 +31,7 @@ async function generatePdfFromHtml(templateFileName, data) {
   const html = template({ 
     ...data,
     injectedStyle: styleContent,
-    ...base64Images
+    ...base64Images // ← ★ ここで全画像をテンプレートに展開
   });
 
   const browser = await puppeteer.launch({
@@ -40,10 +40,6 @@ async function generatePdfFromHtml(templateFileName, data) {
   });
   const page = await browser.newPage();
   await page.setContent(html, { waitUntil: "networkidle0" });
-
-  // ⭐ Webフォントの読み込みを待つ
-  await page.evaluateHandle('document.fonts.ready');
-
   const pdfBuffer = await page.pdf({ 
     format: "A4",
     landscape: true, 
@@ -70,17 +66,7 @@ async function mergePdfBuffers(buffers) {
 app.post("/generate", async (req, res) => {
   try {
     const data = req.body;
-
-    // 🔍 Base64画像が含まれているか確認
-    console.log("🖼️ arrow base64 prefix:", (data.arrow || "").substring(0, 30));
-
-    const pdfBuffers = [];
-    for (const file of templateFiles) {
-      console.log(`▶ Generating PDF from: ${file}`);
-      const buf = await generatePdfFromHtml(file, data); // ← ここでエラーならどのテンプレートか特定可
-      pdfBuffers.push(buf);
-    }
-
+    const pdfBuffers = await Promise.all(templateFiles.map(f => generatePdfFromHtml(f, data)));
     const merged = await mergePdfBuffers(pdfBuffers);
     res.setHeader("Content-Type", "application/pdf");
     res.send(Buffer.from(merged));
