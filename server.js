@@ -55,7 +55,6 @@ async function mergePdfBuffers(buffers) {
 app.post("/generate", async (req, res) => {
   try {
     const data = req.body;
-    data.today = displayDate;
     const pdfBuffers = await Promise.all(templateFiles.map(f => generatePdfFromHtml(f, data)));
     const merged = await mergePdfBuffers(pdfBuffers);
     res.setHeader("Content-Type", "application/pdf");
@@ -75,17 +74,10 @@ app.post("/kintone-upload", async (req, res) => {
   try {
     const data = req.body;
     const recordId = data.recordId;
-
-    const today = new Date();
-    const yyyy = today.getFullYear();
-    const mm = String(today.getMonth() + 1).padStart(2, "0");
-    const dd = String(today.getDate()).padStart(2, "0");
-    const dateStr = `${yyyy}${mm}${dd}`;
-    const displayDate = `${yyyy}年${mm}月${dd}日`;
     // ファイル名
     const sanitize = (s) => (s || "").replace(/[\\/:*?"<>|()\[\]{}]/g, "").trim();
     const safeCompany = sanitize(data.company);
-    const filename = `${safeCompany}(${data.company_no})${data.address}_組織診断レポート_${dateStr}.pdf`;
+    const filename = `${safeCompany}(${data.company_no})${data.address}_組織診断レポート_${data.dateStr}.pdf`;
 
     // PDF作成
     const pdfBuffers = await Promise.all(templateFiles.map(f => generatePdfFromHtml(f, data)));
