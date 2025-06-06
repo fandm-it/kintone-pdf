@@ -31,7 +31,7 @@ async function generatePdfFromHtml(templateFileName, data) {
   const html = template({ 
     ...data,
     injectedStyle: styleContent,
-    ...base64Images // ← ★ ここで全画像をテンプレートに展開
+    ...base64Images
   });
 
   const browser = await puppeteer.launch({
@@ -40,6 +40,10 @@ async function generatePdfFromHtml(templateFileName, data) {
   });
   const page = await browser.newPage();
   await page.setContent(html, { waitUntil: "networkidle0" });
+
+  // ⭐ Webフォントの読み込みを待つ
+  await page.evaluateHandle('document.fonts.ready');
+
   const pdfBuffer = await page.pdf({ 
     format: "A4",
     landscape: true, 
