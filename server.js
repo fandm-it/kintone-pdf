@@ -54,14 +54,28 @@ async function mergePdfBuffers(buffers) {
 // ▼ `/generate` (PDF単独返却)
 app.post("/generate", async (req, res) => {
   try {
-    const data = req.body;
-    const pdfBuffers = await Promise.all(templateFiles.map(f => generatePdfFromHtml(f, data)));
-    const merged = await mergePdfBuffers(pdfBuffers);
+    const today = new Date();
+    const formattedDate = today.toLocaleDateString("ja-JP", {
+      year: "numeric",
+      month: "long",
+      day: "numeric"
+    }); // → 例: "2025年6月6日"
+
+    const data = {
+      ...req.body,
+      today: formattedDate
+    };
+
+    const pdfBuffers = await Promise.all(
+      templateFiles.map((filename) => generatePdfFromHtml(filename, data))
+    );
+
+    const mergedBuffer = await mergePdfBuffers(pdfBuffers);
     res.setHeader("Content-Type", "application/pdf");
-    res.send(Buffer.from(merged));
-  } catch (e) {
-    console.error("PDF生成失敗:", e);
-    res.status(500).send("PDF生成中にエラー");
+    res.send(Buffer.from(mergedBuffer));
+  } catch (err) {
+    console.error("PDF生成中にエラー:", err);
+    res.status(500).send("PDF生成中にエラーが発生しました");
   }
 });
 
