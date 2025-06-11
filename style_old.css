@@ -1,0 +1,324 @@
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  margin: 0;
+  padding: 40px;
+  background-color: white;
+  color: #333;
+}
+
+/* === 共通ページ === */
+.common-page {
+  font-family: 'Noto Sans JP', sans-serif;
+  padding: 48px 60px;
+  height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  background-color: white;
+  font-size: 16px;
+  color: #222;
+}
+
+/* 上部装飾線 */
+.page-border-top .line-thick {
+  border-top: 3px solid #333;
+  height: 3px;
+}
+
+.page-border-top .line-thin {
+  border-top: 1px solid #333;
+  height: 1px;
+}
+
+/* 下部装飾線 */
+.page-border-bottom .line-thin {
+  border-top: 1px solid #333;
+  height: 1px;
+}
+
+.page-border-bottom .line-thick {
+  border-top: 3px solid #333;
+  height: 3px;
+}
+
+/* 左上の項目番号とタイトル */
+.page-heading {
+  display: flex;
+  align-items: center;
+  margin: 24px 0;
+  font-weight: bold;
+}
+
+.heading-number {
+  background-color: #000;
+  color: #fff;
+  padding: 4px 12px;
+  font-size: 18px;
+  margin-right: 8px;
+}
+
+.heading-text {
+  font-size: 20px;
+}
+
+/* ページ本文 */
+.page-content p {
+  margin: 16px 0;
+  line-height: 1.6;
+}
+
+.page-image img {
+  max-width: 100%;
+  margin-top: 32px;
+}
+
+/* カラータグ */
+.tag { font-weight: bold; }
+.tag-red { color: #E03C31; }
+.tag-orange { color: #F28C28; }
+.tag-yellow { color: #FBB040; }
+.tag-green { color: #5BA829; }
+.tag-teal { color: #3FA9F5; }
+.tag-purple { color: #8664C6; }
+
+/* ページ番号右下 */
+.page-footer {
+  position: absolute;
+  right: 60px;
+  bottom: 20px;
+  font-size: 14px;
+}
+
+/* 画像 */
+.page-arrow {
+  position: absolute;
+  top: 150px;
+  right: 80px;
+  opacity: 0.05;
+  z-index: 0;
+}
+
+.page-arrow img {
+  width: 300px;
+}
+
+
+/* === Cover Page 専用 === */
+.cover-title-area {
+  margin-top: 60px;
+  margin-left: 20px;
+}
+
+.cover-title-area h1 {
+  font-size: 36px;
+  margin: 0;
+  font-weight: 700;
+  color: #222;
+}
+
+.cover-title-area p {
+  margin: 20px 0 0;
+  font-size: 18px;
+  color: #333;
+}
+
+.cover-meta-area {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid #333;
+  border-bottom: 3px solid #333;
+  padding: 12px 20px;
+  font-size: 16px;
+  color: #222;
+  margin-top: auto;
+  margin-bottom: 40px;
+}
+
+/* === 目次ページ用 === */
+.toc-content {
+  margin-top: 48px;
+}
+
+.toc-content ul {
+  list-style: none;
+  padding-left: 0;
+  font-size: 16px;
+  line-height: 2;
+}
+
+.toc-content li {
+  display: flex;
+  gap: 12px;
+}
+
+.toc-number {
+  display: inline-block;
+  width: 32px;
+  text-align: right;
+  font-weight: bold;
+  font-feature-settings: 'tnum';
+}
+
+
+
+.evaluation-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  color: #404040;
+}
+
+.evaluation-table th,
+.evaluation-table td {
+  border: 1px solid #ffffff; /* セルの境界線を白に */
+  padding: 10px 12px;
+  text-align: left;
+}
+
+.evaluation-table th {
+  background-color: #A5A5A5;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.evaluation-table tbody tr:nth-child(even) {
+  background-color: #F0F0F0;
+}
+
+.evaluation-table tbody tr:nth-child(odd) {
+  background-color: #E1E1E1;
+}
+
+.evaluation-table .highlight {
+  background-color: #FBE5D6 !important;
+  color: #404040;
+  font-weight: bold;
+}
+
+.heading-block {
+  display: inline-block;       /* 横幅を内容に合わせる */
+}
+
+.heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon-bar {
+  width: 6px;
+  height: 24px;
+  background-color: #333;
+}
+
+.heading-line {
+  border: none;
+  border-bottom: 2px solid #333;
+  width: 160px;               /* ← 線の長さ（お好みで変更可） */
+  margin: 4px 0 24px 0;       /* 上右下左の順で余白 */
+}
+
+.rank-summary {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.overallRank {
+  border-collapse: collapse;
+  width: 300px;
+}
+
+.overallRank th,
+.overallRank td {
+  border: 1px solid #999;
+  padding: 8px 12px;
+  text-align: center;
+}
+
+.criteria-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.criteria-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;  /* ← スペースをgapで制御 */
+  margin: 4px 0;
+}
+
+.criteria-list .label {
+  flex-shrink: 0;       /* 項目名を詰めすぎないように */
+  min-width: 180px;     /* 項目の最小幅（調整可） */
+}
+
+.criteria-list .stars {
+  text-align: left;     /* 左寄せで揃える */
+  white-space: nowrap;
+}
+
+.v-separator {
+  width: 1px;
+  background-color: #999;
+  height: 200px;
+  margin-top: 4px;
+}
+
+.result-table {
+  width: 100%;
+  table-layout: fixed; /* ← カラム幅を指定通りにする */
+  border-collapse: collapse;
+  font-size: 13px;
+  color: #333;
+  margin-top: 16px;
+}
+
+.result-table th,
+.result-table td {
+  border: 1px solid #888;
+  padding: 8px;
+  vertical-align: middle;
+  text-align: left;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+/* 各列の幅設定 */
+.result-table colgroup col:nth-child(1) { width: 5%; }
+.result-table colgroup col:nth-child(2) { width: 45%; } /* ← 設問列：左半分 */
+.result-table colgroup col:nth-child(3) { width: 40%; } /* ← 回答分布：広め */
+.result-table colgroup col:nth-child(4) { width: 10%; }
+
+.result-table th {
+  background-color: #eee;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* 平均点列の中央揃え */
+.result-table td:last-child,
+.result-table th:last-child {
+  text-align: center;
+}
+
+.bar-container {
+  display: flex;
+  width: 100%;
+  height: 20px;
+}
+
+.bar-segment {
+  height: 100%;
+}
+
+.bar-segment.s5 { background-color: #004080; }
+.bar-segment.s4 { background-color: #4a80c0; }
+.bar-segment.s3 { background-color: #cccccc; }
+.bar-segment.s2 { background-color: #f7b6b6; }
+.bar-segment.s1 { background-color: #f28e8e; }

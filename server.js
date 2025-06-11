@@ -17,7 +17,7 @@ handlebars.registerHelper("renderStars", (score) => "★".repeat(score) + "☆".
 handlebars.registerHelper("isEqual", (a, b, options) => a === b ? options.fn(this) : options.inverse(this));
 
 // テンプレート一覧
-const templateFiles = ["cover.html", "page2.html", "page4.html", "page5.html"];
+const templateFiles = ["cover.html", "toc.html", "page3.html"];
 
 // HTML → PDF化
 async function generatePdfFromHtml(templateFileName, data) {
