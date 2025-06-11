@@ -21,35 +21,57 @@ const templateFiles = ["cover.html", "page2.html", "page4.html", "page5.html"];
 
 // HTML → PDF化
 async function generatePdfFromHtml(templateFileName, data) {
-  const templatePath = path.join(__dirname, "templates", templateFileName);
-  const stylePath = path.join(__dirname, "style.css");
-  const templateSource = fs.readFileSync(templatePath, "utf8");
-  const styleContent = fs.readFileSync(stylePath, "utf8");
-  const base64Images = require("./assets/base64-images.json");
+  try {
+    console.log(`📄 [START] Generating PDF from: ${templateFileName}`);
 
-  const template = handlebars.compile(templateSource);
-  const html = template({ 
-    ...data,
-    injectedStyle: styleContent,
-    ...base64Images // ← ★ ここで全画像をテンプレートに展開
-  });
+    const templatePath = path.join(__dirname, "templates", templateFileName);
+    const stylePath = path.join(__dirname, "style.css");
+    const templateSource = fs.readFileSync(templatePath, "utf8");
+    const styleContent = fs.readFileSync(stylePath, "utf8");
+    const base64Images = require("./assets/base64-images.json");
 
-  const browser = await puppeteer.launch({
-    headless: "new",
-    args: ["--no-sandbox", "--disable-setuid-sandbox"]
-  });
-  const page = await browser.newPage();
-  await page.setContent(html, { waitUntil: "networkidle0", timeout: 60000});
-  await page.evaluateHandle('document.fonts.ready');
-  const pdfBuffer = await page.pdf({ 
-    format: "A4",
-    landscape: true, 
-    printBackground: true,
-    preferCSSPageSize: true
-  });
-  await browser.close();
+    const template = handlebars.compile(templateSource);
+    const html = template({
+      ...data,
+      injectedStyle: styleContent,
+      ...base64Images
+    });
 
-  return pdfBuffer;
+    console.log(`🔎 HTML length: ${html.length}`);
+    console.log("🔎 HTML preview:", html.slice(0, 200).replace(/\n/g, ""));
+    console.log("🔎 Base64 image (arrow) preview:", (data.arrow || "").slice(0, 60));
+
+    const browser = await puppeteer.launch({
+      headless: "new",
+      args: ["--no-sandbox", "--disable-setuid-sandbox"]
+    });
+
+    const page = await browser.newPage();
+
+    await page.setContent(html, {
+      waitUntil: "networkidle0",
+      timeout: 60000
+    });
+
+    await page.evaluateHandle('document.fonts.ready');
+
+    const pdfBuffer = await page.pdf({
+      format: "A4",
+      landscape: true,
+      printBackground: true,
+      preferCSSPageSize: true
+    });
+
+    await browser.close();
+
+    console.log(`✅ [SUCCESS] PDF generated from: ${templateFileName}`);
+
+    return pdfBuffer;
+  } catch (err) {
+    console.error(`❌ [ERROR] PDF generation failed for: ${templateFileName}`);
+    console.error(err.message);
+    throw err;
+  }
 }
 
 // PDFマージ
@@ -67,12 +89,23 @@ async function mergePdfBuffers(buffers) {
 app.post("/generate", async (req, res) => {
   try {
     const data = req.body;
-    const pdfBuffers = await Promise.all(templateFiles.map(f => generatePdfFromHtml(f, data)));
+    const pdfBuffers = [];
+
+    for (const file of templateFiles) {
+      try {
+        const buf = await generatePdfFromHtml(file, data);
+        pdfBuffers.push(buf);
+      } catch (err) {
+        console.error(`🛑 スキップ: ${file} のPDF生成に失敗しました`);
+        return res.status(500).send(`PDF生成失敗: ${file}`);
+      }
+    }
+
     const merged = await mergePdfBuffers(pdfBuffers);
     res.setHeader("Content-Type", "application/pdf");
     res.send(Buffer.from(merged));
   } catch (e) {
-    console.error("PDF生成失敗:", e);
+    console.error("❌ [FATAL] PDF生成中にエラー:", e);
     res.status(500).send("PDF生成中にエラー");
   }
 });
