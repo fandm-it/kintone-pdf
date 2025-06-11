@@ -56,7 +56,7 @@ async function generatePdfFromHtml(templateFileName, data) {
     await page.evaluateHandle('document.fonts.ready');
 
     const pdfBuffer = await page.pdf({
-      format: "A4",
+      format: "legal",
       landscape: true,
       printBackground: true,
       preferCSSPageSize: true

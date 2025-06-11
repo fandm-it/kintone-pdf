@@ -7,10 +7,9 @@ body {
 }
 
 .page {
-  width: 100%;
-  height: 100vh;
   padding: 48px 60px;
-  position: relative;
+  box-sizing: border-box;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -24,6 +23,13 @@ body {
 .page-border-top .line-thin {
   border-top: 1px solid #333;
   height: 1px;
+}
+
+/* 見出し下線 */
+.heading-underline {
+  border-bottom: 1px solid #666;
+  margin: 12px 0 24px 0;
+  width: 100%;
 }
 
 /* フッター線 */
@@ -54,21 +60,30 @@ body {
 }
 
 /* ========== cover-page ========== */
-.cover-page .cover-title {
-  font-size: 36px;
-  font-weight: bold;
-  color: #222;
-  margin-bottom: 12px;
+/* 表紙ヘッダー・フッター */
+.cover-top-border, .cover-bottom-border {
+  width: 100%;
 }
 
-.cover-meta {
+.cover-top-border {
+  border-top: 3px solid #333;
+  border-bottom: 1px solid #333;
+  height: 6px;
+  margin-bottom: 40px;
+}
+
+.cover-bottom-border {
+  margin-top: auto;
+}
+
+.cover-meta-area {
   display: flex;
-  justify-content: space-between;
-  padding: 12px 20px;
+  justify-content: space-around;
+  font-size: 16px;
   border-top: 1px solid #333;
   border-bottom: 3px solid #333;
-  font-size: 16px;
-  color: #222;
+  padding: 10px 0;
+  margin-top: 60px;
 }
 
 /* ========== toc-page ========== */
@@ -91,6 +106,39 @@ body {
   margin-top: 80px;
   font-size: 18px;
   line-height: 2;
+}
+
+.toc-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70%;
+  padding: 0;
+}
+
+.toc-content ul {
+  list-style: none; /* ● を非表示 */
+  padding: 0;
+  margin: 0;
+  font-size: 18px;
+  line-height: 2.2;
+}
+
+/* 「目次」見出し：縦書き + 黒ボックス */
+.page-heading .heading-text {
+  writing-mode: vertical-rl;
+  background-color: #222;
+  color: #fff;
+  font-size: 24px;
+  font-weight: bold;
+  padding: 20px 10px;
+  position: absolute;
+  top: 0;
+  left: 60px;
+  height: 240px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* ========== section-page ========== */
@@ -156,3 +204,13 @@ body {
 .tag-green  { color: #70a744; }
 .tag-blue   { color: #457b9d; }
 .tag-purple { color: #7b52ab; }
+
+.page-content {
+  text-align: center;
+  font-size: 18px;
+  line-height: 2;
+  padding: 20px 60px;
+  max-height: calc(100vh - 250px); /* ページ番号・余白を除いた高さ */
+  overflow: hidden; /* ページ超えを防止 */
+}
+
