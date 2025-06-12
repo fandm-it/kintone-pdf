@@ -42,8 +42,6 @@ body {
 .page-border-bottom {
   position: absolute;
   bottom: 40px;  /* ページ下からの距離。必要に応じて微調整 */
-  left: 0;
-  right: 0;
   padding-top: 8px;
   padding-bottom: 12px;
 }
@@ -104,8 +102,6 @@ body {
 .cover-bottom-border {
   position: absolute;
   bottom: 40px;  /* ページ下からの距離。必要に応じて微調整 */
-  left: 0;
-  right: 0;
   padding-top: 8px;
   padding-bottom: 12px;
 }
@@ -126,12 +122,12 @@ body {
 .cover-title-area {
   position: absolute;
   top: 35%;              /* 高さ方向：縦中央より少し上 */
-  left: 200px;            /* 左からの余白（調整可能） */
+  left: 120px;            /* 左からの余白（調整可能） */
   transform: none;       /* 中央配置の解除 */
 }
 
 .cover-title-area h1 {
-  font-size: 36px;
+  font-size: 48px;
   margin: 0;
   font-weight: 700;
   color: #222;
@@ -139,7 +135,7 @@ body {
 
 .cover-title-area p {
   margin-top: 20px;
-  font-size: 18px;
+  font-size: 24px;
   color: #333;
 }
 
