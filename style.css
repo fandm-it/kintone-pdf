@@ -1,21 +1,21 @@
-/* 共通レイアウト */
+/* ========== 共通レイアウト ========== */
 body {
   font-family: 'Noto Sans JP', sans-serif;
   margin: 0;
   padding: 0;
-}
-.page, .cover-page, .toc-page {
   box-sizing: border-box;
-  width: 100%;
-  height: 100%;
-  padding: 40px; /* ページ全体の余白（PDF出力時のmarginとも一致） */
-  position: relative;
 }
 
-/* ヘッダー装飾線（上：太線→細線） */
-.page-border-top {
-  position: relative;
+.page {
+  padding: 48px 60px;
+  box-sizing: border-box;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
+
+/* ヘッダー線 */
 .page-border-top .line-thick {
   border-top: 3px solid #333;
   height: 3px;
@@ -23,152 +23,210 @@ body {
 .page-border-top .line-thin {
   border-top: 1px solid #333;
   height: 1px;
-  margin-top: 4px; /* 太線と細線の間隔 */
 }
 
-/* フッター装飾線（下：細線→太線） */
-.page-border-bottom {
-  position: absolute;
-  bottom: 30px;
+/* 見出し下線 */
+.heading-underline {
+  border-bottom: 1px solid #666;
+  margin: 12px 0 24px 0;
   width: 100%;
+}
+
+/* フッター線 */
+.page-border-bottom {
+  margin-top: auto;
+  padding-top: 8px;  /* 太線と本文の間 */
+  padding-bottom: 12px;  /* 細線とページ下端の間 */
 }
 .page-border-bottom .line-thin {
   border-top: 1px solid #333;
   height: 1px;
+  margin-bottom: 6px;  /* 細線と太線の間隔 */
 }
 .page-border-bottom .line-thick {
   border-top: 3px solid #333;
   height: 3px;
-  margin-top: 4px; /* 同様に太線と細線の間隔 */
 }
 
-/* ページ番号 */
+/* ページ番号（共通） */
 .page-footer {
-  position: absolute;
-  bottom: 5px;
-  right: 40px;
-  font-size: 12px;
-}
-
-/* 表紙タイトル位置 */
-.cover-title-area {
-  position: absolute;
-  top: 30%;
-  left: 10%;
-}
-.cover-title-area h1 {
-  font-size: 36px;
-  margin-bottom: 10px;
-}
-.cover-title-area p {
-  font-size: 18px;
-}
-
-/* 表紙のmeta情報 */
-.cover-meta-area {
-  position: absolute;
-  bottom: 80px;
-  left: 10%;
-  display: flex;
-  gap: 40px;
   font-size: 14px;
+  text-align: right;
+  margin-top: 4px;
+  color: #222;
 }
 
-/* 目次ページ：見出し黒背景 */
-.page-heading {
+/* 共通の矢印 */
+.page-arrow img {
   position: absolute;
-  top: 0;
-  left: 60px;
-  background-color: #000;
-  color: #fff;
-  padding: 60px 15px;
-  font-size: 24px;
-  writing-mode: vertical-rl;
-  text-align: center;
+  right: 60px;
+  top: 120px;
+  opacity: 0.05;
+  width: 300px;
 }
 
-/* 目次リストの中央配置 */
-.toc-content {
-  position: absolute;
-  top: 50%;
-  left: 55%;
-  transform: translate(-50%, -50%);
-  font-size: 16px;
-}
-.toc-content ul {
-  list-style: none;
-  padding: 0;
-}
-.toc-content li {
-  margin-bottom: 10px;
-}
-.toc-number {
-  font-weight: bold;
-}
-
-/* 通常ページの見出し（例：01 はじめに） */
-.page-heading-number {
-  position: absolute;
-  top: 0;
-  left: 60px;
-  background-color: #000;
-  color: #fff;
-  padding: 20px 15px;
-  font-size: 24px;
-}
-.page-heading-title {
-  position: absolute;
-  top: 20px;
-  left: 120px;
-  font-size: 24px;
-}
-
-/* 見出しと本文の間の線 */
-.page-heading-underline {
-  border-bottom: 1px solid #666;
-  margin-top: 70px;
+/* ========== cover-page ========== */
+/* 表紙ヘッダー・フッター */
+.cover-top-border, .cover-bottom-border {
   width: 100%;
 }
 
-/* 通常ページ本文 */
-.page-content {
-  margin-top: 100px;
-  text-align: center;
+.cover-top-border {
+  border-top: 3px solid #333;
+  border-bottom: 1px solid #333;
+  height: 6px;
+  margin-bottom: 40px;
+}
+
+.cover-bottom-border {
+  margin-top: auto;
+  height: 6px;
+}
+
+.cover-bottom-border .bottom-line.thin {
+  margin-top: 0px;
+}
+
+.cover-title-area {
+  position: absolute;
+  top: 40%;
+  left: 80px; /* 中央よりやや左に */
+  transform: translateY(-50%);
+}
+
+.cover-meta-area {
+  display: flex;
+  justify-content: space-around;
   font-size: 16px;
-  line-height: 1.8;
+  position: absolute;
+  bottom: 80px;  /* さらに下に移動 */
+  width: 100%;
+  border-top: 1px solid #333;
+  border-bottom: 3px solid #333;
+  padding: 10px 0;
 }
 
-/* 本文中の画像 */
-.page-image {
+/* ========== toc-page ========== */
+.toc-label {
+  background-color: #222;
+  color: white;
+  writing-mode: vertical-rl;
   text-align: center;
-  margin-top: 30px;
-}
-.page-image img {
-  max-width: 90%;
-  max-height: 320px;
-  object-fit: contain;
+  font-size: 24px;
+  padding: 20px 0;
+  position: absolute;
+  top: 30px;
+  left: 60px;
+  height: 180px;
+  width: 48px;
 }
 
-/* 矢印背景 */
-.page-arrow {
+.toc-items {
+  margin-left: 140px;
+  margin-top: 80px;
+  font-size: 18px;
+  line-height: 2;
+}
+
+.toc-content {
+  justify-content: flex-start;
+  padding-left: 120px; 
+}
+
+.toc-content ul {
+  list-style: none; /* ● を非表示 */
+  padding: 0;
+  margin: 0;
+  font-size: 18px;
+  line-height: 2.2;
+}
+
+/* 「目次」見出し：縦書き + 黒ボックス */
+.page-heading .heading-text {
+  writing-mode: vertical-rl;
+  background-color: #222;
+  color: #fff;
+  font-size: 24px;
+  font-weight: bold;
+  padding: 20px 10px;
   position: absolute;
   top: 0;
-  right: 0;
-}
-.page-arrow img {
-  height: 120px;
+  left: 80px;
+  height: 240px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* 色付きタグ */
-.tag {
-  padding: 2px 6px;
-  border-radius: 4px;
+/* ========== section-page ========== */
+.page-heading {
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.page-heading .heading-number {
+  background-color: #222;
   color: white;
+  padding: 6px 12px;
+  margin-right: 12px;
+}
+
+.page-heading-line {
+  border-bottom: 1px solid #333;
+  margin: 0 0 16px 0;
+}
+
+/* === 本文ページ === */
+.section-page {
+  font-family: 'Noto Sans JP', sans-serif;
+  padding: 48px 60px;
+  height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  background-color: white;
+  font-size: 16px;
+  color: #222;
+}
+
+/* 本文ページの下線（見出しの下） */
+.heading-underline {
+  border-bottom: 2px solid #333;
+  margin-top: -16px;
+  margin-bottom: 24px;
+}
+
+/* === Page 3 固有設定 === */
+.page-image {
+  margin-top: 24px;
+  text-align: center;
+}
+.page-image img {
+  max-width: 360px; /* ← 元は 400px */
+  margin-bottom: 16px;
+}
+
+.tag {
   font-weight: bold;
 }
-.tag-red { background-color: #e74c3c; }
-.tag-orange { background-color: #e67e22; }
-.tag-yellow { background-color: #f1c40f; color: #000; }
-.tag-green { background-color: #2ecc71; }
-.tag-teal { background-color: #1abc9c; }
-.tag-purple { background-color: #9b59b6; }
+.tag-red    { color: #d62828; }
+.tag-orange { color: #f77f00; }
+.tag-yellow { color: #fcbf49; }
+.tag-green  { color: #70a744; }
+.tag-blue   { color: #457b9d; }
+.tag-purple { color: #7b52ab; }
+
+.page-content {
+  text-align: center;
+  font-size: 18px;
+  line-height: 2;
+  padding: 20px 60px;
+  max-height: calc(100vh - 250px); /* ページ番号・余白を除いた高さ */
+  overflow: hidden; /* ページ超えを防止 */
+}
+
