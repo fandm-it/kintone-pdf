@@ -13,13 +13,11 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  position: relative;
 }
 
 /* ヘッダー線 */
 .page-border-top {
-  position: absolute;
-  top: 40px;
+  margin-top: auto;
   padding-top: 8px;  /* 太線とページ上端の間 */
   padding-bottom: 12px;  /* 細線と本文の間 */
 }
@@ -86,27 +84,44 @@ body {
 }
 
 /* ========== cover-page ========== */
-/* 表紙ヘッダー・フッター 
-.cover-top-border, .cover-bottom-border {
-  width: 100%;
-}
-
+/* ヘッダー線 */
 .cover-top-border {
-  border-top: 3px solid #333;
-  border-bottom: 1px solid #333;
-  height: 6px;
-  margin-bottom: 40px;
-}
-
-.cover-bottom-border {
   margin-top: auto;
-  height: 6px;
+  padding-top: 8px;  /* 太線とページ上端の間 */
+  padding-bottom: 12px;  /* 細線と本文の間 */
+}
+.cover-top-border .line-thick {
+  border-top: 3px solid #333;
+  height: 3px;
+  margin-bottom: 6px;  /* 細線と太線の間隔 */
+}
+.cover-top-border .line-thin {
+  border-top: 1px solid #333;
+  height: 1px;
 }
 
-.cover-bottom-border .bottom-line.thin {
-  margin-top: 0px;
+/* フッター線 */
+.cover-bottom-border {
+  position: absolute;
+  bottom: 40px;  /* ページ下からの距離。必要に応じて微調整 */
+  left: 0;
+  right: 0;
+  padding-top: 8px;
+  padding-bottom: 12px;
 }
-*/
+.cover-bottom-border .line-thin {
+  border-top: 1px solid #333;
+  height: 1px;
+  margin-bottom: 6px;  /* 細線と太線の間隔 */
+}
+.cover-bottom-border .line-thick {
+  border-top: 3px solid #333;
+  height: 3px;
+}
+
+.cover-page {
+  position: relative;
+}
 
 .cover-title-area {
   position: absolute;
@@ -180,13 +195,13 @@ body {
   writing-mode: vertical-rl;
   background-color: #222;
   color: #fff;
-  font-size: 24px;
+  font-size: 28px;
   font-weight: bold;
   padding: 20px 10px;
   position: absolute;
   top: 0;
   left: 80px;
-  height: 240px;
+  height: 200px;
   display: flex;
   justify-content: center;
   align-items: center;
