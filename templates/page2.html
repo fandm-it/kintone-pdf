@@ -1,34 +1,35 @@
-<!-- templates/page2.html -->
+<!-- ✅ page2.html（目次） -->
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>目次</title>
-  <!-- ⭐ Webフォントを直接読み込む -->
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
-  <!-- ⭐ 組み込みCSS（PDFにも確実に反映） -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
   <style>
     {{{injectedStyle}}}
   </style>
 </head>
-<body>
-  <div class="page">
-    <div class="toc-container">
-      <h1 class="toc-title">目 次</h1>
-      <ul class="toc-list">
-        <li>01　はじめに</li>
-        <li>02　総合評価</li>
-        <li>03　各項目の評価</li>
-        <li>04　貴社の強み</li>
-        <li>05　強みを活かした取り組み</li>
-        <li>06　貴社の弱み</li>
-        <li>07　弱みを補う取り組み</li>
-        <li>08　ハーズバーグの二要因理論とは？</li>
-        <li>09　二要因理論に基づく分析</li>
-        <li>10　回答の集計結果</li>
-        <li>11　おすすめのサービス</li>
-      </ul>
-    </div>
+<body class="page page-toc">
+  <div class="toc-label">目次</div>
+  <ul class="toc-list">
+    <li>01 はじめに</li>
+    <li>02 総合評価</li>
+    <li>03 各項目の評価</li>
+    <li>04 貴社の強み</li>
+    <li>05 強みを活かした取り組み</li>
+    <li>06 貴社の弱み</li>
+    <li>07 弱みを補う取り組み</li>
+    <li>08 ハーズバーグの二要因理論とは？</li>
+    <li>09 二要因理論に基づく分析</li>
+    <li>10 回答の集計結果</li>
+    <li>11 おススメのサービス</li>
+  </ul>
+  <div class="cover-image">
+    <img src="{{arrow}}" alt="arrow" />
+  </div>
+  <div class="page-border-bottom">
+    <div class="line-thin"></div>
+    <div class="line-thick"></div>
   </div>
 </body>
 </html>

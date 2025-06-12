@@ -1,30 +1,26 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <title>組織診断レポート</title>
+  <meta charset="UTF-8">
+  <title>組織診断レポート 表紙</title>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
   <style>
     {{{injectedStyle}}}
   </style>
 </head>
-<body>
-  <div class="page page1">
-    <div class="top-border"></div>
-
-    <div class="content">
-      <h1 class="title">組織診断レポート</h1>
-      <p class="subtitle">サンプル株式会社 御中</p>
-      <div class="dot-bg"></div>
-    </div>
-
-    <div class="bottom-info">
-      <div class="info"><span>作成日：</span>2025/06/11</div>
-      <div class="info"><span>実施人数：</span>2名</div>
-      <div class="info"><span>実施回数：</span>第1回</div>
-    </div>
-
-    <div class="bottom-border"></div>
+<body class="page page-cover">
+  <h1 class="title">組織診断レポート</h1>
+  <div class="cover-info">
+    <p class="company">{{企業名}}</p>
+    <p class="date">作成日：{{作成日}}</p>
+    <p class="info">実施人数：{{実施人数}}　実施回数：{{実施回数}}</p>
+  </div>
+  <div class="cover-image">
+    <img src="{{arrow}}" alt="arrow" />
+  </div>
+  <div class="page-border-bottom">
+    <div class="line-thin"></div>
+    <div class="line-thick"></div>
   </div>
 </body>
 </html>

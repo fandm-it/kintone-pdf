@@ -1,0 +1,68 @@
+<!-- ✅ page4.html（02 総合評価） -->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>総合評価</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    {{{injectedStyle}}}
+  </style>
+</head>
+<body class="page page-summary">
+  <div class="page-border-top">
+    <div class="line-thick"></div>
+    <div class="line-thin"></div>
+  </div>
+
+  <div class="section-header">
+    <div class="section-label">02</div>
+    <div class="section-title">総合評価</div>
+  </div>
+  <div class="section-border"></div>
+
+  <div class="summary-tables">
+    <div class="summary-table-1">
+      <!-- 表1：変数入力 -->
+      <table>
+        <thead>
+          <tr><th>実施日</th><th>総合ランク</th><th>総合スコア</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>2023/6/1</td><td>A</td><td>78</td></tr>
+          <tr><td>2023/12/1</td><td>B</td><td>66</td></tr>
+          <tr><td>2024/6/1</td><td>B</td><td>79</td></tr>
+          <tr><td>2024/12/1</td><td>A</td><td>68</td></tr>
+          <tr><td>2025/6/4</td><td>B</td><td>72</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="summary-table-2">
+      <!-- 表2：ランク別コメント -->
+      <table>
+        <thead>
+          <tr><th>ランク</th><th>総合スコア</th><th>評価コメント</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>S</td><td>90～100点</td><td>非常に優れた組織。強みを活かしつつ成長を続ける状態</td></tr>
+          <tr><td>A</td><td>75～89点</td><td>良好な組織だが、一部改善の余地あり</td></tr>
+          <tr><td>B</td><td>60～74点</td><td>平均的な状態。課題を特定し改善するとさらに良くなる</td></tr>
+          <tr><td>C</td><td>40～59点</td><td>課題が多く、組織改善が必要な状態</td></tr>
+          <tr><td>D</td><td>0～39点</td><td>重大な問題あり。早急な対策が必要</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="summary-graph">
+    <canvas id="lineChart"></canvas>
+    <!-- グラフは Chart.js にて別途スクリプト挿入 -->
+  </div>
+
+  <div class="page-border-bottom">
+    <div class="line-thin"></div>
+    <div class="line-thick"></div>
+    <div class="page-number">04/17</div>
+  </div>
+</body>
+</html>
