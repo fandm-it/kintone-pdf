@@ -1,8 +1,9 @@
+<!-- templates/page3.html -->
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <title>01 はじめに</title>
+  <meta charset="UTF-8" />
+  <title>総合評価</title>
   <!-- ⭐ Webフォントを直接読み込む -->
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
   <!-- ⭐ 組み込みCSS（PDFにも確実に反映） -->
@@ -11,59 +12,51 @@
   </style>
 </head>
 <body>
-  <div class="section-page page">
-    <!-- ヘッダー装飾線 -->
-    <div class="page-border-top">
-      <div class="line-thick"></div>
-      <div class="line-thin"></div>
-    </div>
+  <div class="page">
+    <div class="summary-container">
+      <h1 class="section-title">02 総合評価</h1>
 
-    <!-- 見出し（左上） -->
-    <div class="page-heading">
-      <div class="section-number">01</div>
-      <div class="section-title">はじめに</div>
-    </div>
-    <div class="section-underline"></div>
+      <div class="score-summary">
+        <p><strong>総合ランク：</strong><span class="rank">B</span></p>
+        <p><strong>総合スコア：</strong><span class="score">65</span></p>
+        <p><strong>実施日：</strong>2025/06/11</p>
+      </div>
 
-    <!-- 本文 -->
-    <div class="page-content">
-      <p>このたびは、「組織診断」サービスをご利用いただき、誠にありがとうございます。</p>
-
-      <p>
-        本サービスは、従業員の皆さまからのご回答をもとに、<br>
-        <span class="tag tag-red">①リーダーシップ</span>、
-        <span class="tag tag-orange">②スタッフの主体性</span>、
-        <span class="tag tag-yellow">③仕事のやりがい</span>、
-        <span class="tag tag-green">④チーム力</span>、
-        <span class="tag tag-blue">⑤評価と報酬</span>、
-        <span class="tag tag-purple">⑥チームの風土・環境</span>の<br>
-        6つの観点から貴社の組織状況を総合的に診断いたします。
-      </p>
-
-      <p>
-        さらに、<strong>ハーズバーグの二要因理論</strong>に基づき、<br>
-        従業員のモチベーションについても分析を行っております。
-      </p>
-
-      <p>
-        本診断を通じて、貴社における組織の強みや課題を明確にし、<br>
-        今後の組織づくりや人材育成の取り組みにぜひお役立てください。
-      </p>
-
-      <!-- イラスト挿入 -->
-      <div class="page-image">
-        <img src="{{image36}}" alt="ミーティングのイラスト">
+      <!-- 棒グラフ（Chart.js用Canvas） -->
+      <div class="chart-section">
+        <canvas id="summaryBarChart" width="600" height="300"></canvas>
       </div>
     </div>
 
-    <!-- フッター装飾線 + ページ番号 -->
-    <div class="page-border-bottom">
-      <div class="line-thin"></div>
-      <div class="line-thick"></div>
-    </div>
-    <div class="page-footer">
-      <span>03/17</span>
-    </div>
+    <!-- ⭐ Chart.js 読み込み（PDF出力に使うなら Puppeteer 側で画像化） -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      const ctx = document.getElementById('summaryBarChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['リーダーシップ', 'スタッフの主体性', '仕事のやりがい', 'チーム力', '評価と報酬', 'チームの風土・環境'],
+          datasets: [{
+            label: '今回のスコア',
+            data: [68, 62, 52, 61, 77, 70],
+            backgroundColor: 'rgba(54, 162, 235, 0.7)'
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 100
+            }
+          },
+          plugins: {
+            legend: {
+              display: false
+            }
+          }
+        }
+      });
+    </script>
   </div>
 </body>
 </html>

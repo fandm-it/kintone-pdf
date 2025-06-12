@@ -1,280 +1,102 @@
-/* ========== 共通レイアウト ========== */
+/* ⭐ 基本設定 */
 body {
-  font-family: 'Noto Sans JP', sans-serif;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  font-family: 'Noto Sans JP', sans-serif;
+  color: #000;
 }
 
+/* ⭐ ページ設定（Legal横・印刷用） */
 .page {
-  padding: 48px 60px;
-  box-sizing: border-box;
+  width: 100%;
   height: 100vh;
+  page-break-after: always;
+  box-sizing: border-box;
+  padding: 60px 80px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-}
-
-/* ヘッダー線 */
-.page-border-top {
-  margin-top: auto;
-  padding-top: 8px;  /* 太線とページ上端の間 */
-  padding-bottom: 12px;  /* 細線と本文の間 */
-}
-.page-border-top .line-thick {
-  border-top: 3px solid #333;
-  height: 3px;
-  margin-bottom: 6px;  /* 細線と太線の間隔 */
-}
-.page-border-top .line-thin {
-  border-top: 1px solid #333;
-  height: 1px;
-}
-
-/* 見出し下線 */
-.section-underline {
-  border-bottom: 1px solid #666;
-  margin: 12px 0 24px 0;
-  width: 100%;
-}
-
-/* フッター線 */
-.page-border-bottom {
-  position: absolute;
-  bottom: 40px;  /* ページ下からの距離。必要に応じて微調整 */
-  padding-top: 8px;
-  padding-bottom: 12px;
-}
-.page-border-bottom .line-thin {
-  border-top: 1px solid #333;
-  height: 1px;
-  margin-bottom: 6px;  /* 細線と太線の間隔 */
-}
-.page-border-bottom .line-thick {
-  border-top: 3px solid #333;
-  height: 3px;
-}
-
-/* ページ番号（共通） */
-.page-footer {
-  position: absolute;
-  right: 70px;
-  bottom: 40px; /* フッター線に食い込ませる位置（調整可） */
-  font-weight: bold;
-  font-size: 14px;
-  z-index: 2;
-  background-color: white; /* 食い込み部分を白く上書きする（なくてもOK） */
-  padding: 0 4px; /* 数字の読みやすさ確保 */
-}
-
-/* 共通の矢印 */
-.page-arrow {
-  position: relative;
-}
-
-.page-arrow img {
-  position: absolute;
-  right: 60px;
-  top: 50%;
-  transform: translateY(-50%);
-  opacity: 0.05;
-  width: 400px;
-}
-
-/* ========== cover-page ========== */
-/* ヘッダー線 */
-.cover-top-border {
-  margin-top: auto;
-  padding-top: 8px;  /* 太線とページ上端の間 */
-  padding-bottom: 12px;  /* 細線と本文の間 */
-}
-.cover-top-border .line-thick {
-  border-top: 3px solid #333;
-  height: 3px;
-  margin-bottom: 6px;  /* 細線と太線の間隔 */
-}
-.cover-top-border .line-thin {
-  border-top: 1px solid #333;
-  height: 1px;
-}
-
-/* フッター線 */
-.cover-bottom-border {
-  position: absolute;
-  bottom: 40px;  /* ページ下からの距離。必要に応じて微調整 */
-  padding-top: 8px;
-  padding-bottom: 12px;
-}
-.cover-bottom-border .line-thin {
-  border-top: 1px solid #333;
-  height: 1px;
-  margin-bottom: 6px;  /* 細線と太線の間隔 */
-}
-.cover-bottom-border .line-thick {
-  border-top: 3px solid #333;
-  height: 3px;
-}
-
-.cover-page {
-  position: relative;
-}
-
-.cover-title-area {
-  position: absolute;
-  top: 35%;              /* 高さ方向：縦中央より少し上 */
-  left: 120px;            /* 左からの余白（調整可能） */
-  transform: none;       /* 中央配置の解除 */
-}
-
-.cover-title-area h1 {
-  font-size: 48px;
-  margin: 0;
-  font-weight: 700;
-  color: #222;
-}
-
-.cover-title-area p {
-  margin-top: 20px;
-  font-size: 24px;
-  color: #333;
-}
-
-.cover-meta-area {
-  display: flex;
-  justify-content: space-around;
-  font-size: 16px;
-  position: absolute;
-  bottom: 80px;  /* さらに下に移動 */
-  width: 100%;
-  border-top: 1px solid #333;
-  /* border-bottom: 3px solid #333; */
-  padding: 10px 0;
-}
-
-/* ========== toc-page ========== */
-.toc-label {
-  background-color: #222;
-  color: white;
-  writing-mode: vertical-rl;
-  text-align: center;
-  font-size: 24px;
-  padding: 20px 0;
-  position: absolute;
-  top: 30px;
-  left: 60px;
-  height: 180px;
-  width: 48px;
-}
-
-.toc-items {
-  margin-left: 140px;
-  margin-top: 80px;
-  font-size: 18px;
-  line-height: 2;
-}
-
-.toc-content {
-  justify-content: flex-start;
-  padding-left: 120px; 
-}
-
-.toc-content ul {
-  list-style: none; /* ● を非表示 */
-  padding: 0;
-  margin: 0;
-  font-size: 18px;
-  line-height: 2.2;
-}
-
-/* 目次ページ専用の見出し */
-.toc-heading .toc-title {
-  writing-mode: vertical-rl;
-  background-color: #222;
-  color: #fff;
-  font-size: 28px;
-  font-weight: bold;
-  padding: 20px 10px;
-  position: absolute;
-  top: 0;
-  left: 80px;
-  height: 200px;
-  display: flex;
   justify-content: center;
   align-items: center;
 }
 
-/* ========== section-page ========== */
-/* 通常ページの見出し（番号＋テキスト） */
-.page-heading {
-  display: flex;
-  align-items: center;
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 8px;
-  margin-left: 60px; /* 左端から少し右に */
+@media print {
+  @page {
+    size: legal landscape;
+    margin: 0;
+  }
+  body {
+    -webkit-print-color-adjust: exact;
+  }
 }
 
-.page-heading .section-number {
-  background-color: #222;
-  color: white;
-  padding: 6px 12px;
-  margin-right: 12px;
-}
-
-.page-heading .section-title {
-  color: #222;
-  font-size: 20px;
-  font-weight: bold;
-}
-
-/* === 本文ページ === */
-.section-page {
-  font-family: 'Noto Sans JP', sans-serif;
-  padding: 48px 60px;
-  height: 100vh;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  position: relative;
-  background-color: white;
-  font-size: 16px;
-  color: #222;
-}
-
-/* 本文ページの下線（見出しの下） */
-.heading-underline {
-  border-bottom: 2px solid #333;
-  margin-top: -16px;
-  margin-bottom: 24px;
-}
-
-/* === Page 3 固有設定 === */
-.page-image {
-  margin-top: 24px;
+/* ⭐ 表紙レイアウト */
+.cover-container {
   text-align: center;
 }
-.page-image img {
-  max-width: 360px; /* ← 元は 400px */
-  margin-bottom: 16px;
-}
 
-.tag {
+.report-title {
+  font-size: 40px;
   font-weight: bold;
+  margin-bottom: 60px;
 }
-.tag-red    { color: #d62828; }
-.tag-orange { color: #f77f00; }
-.tag-yellow { color: #fcbf49; }
-.tag-green  { color: #70a744; }
-.tag-blue   { color: #457b9d; }
-.tag-purple { color: #7b52ab; }
 
-.page-content {
+.company-name {
+  font-size: 28px;
+  margin-bottom: 40px;
+}
+
+.create-date {
+  font-size: 20px;
+}
+
+/* 目次ページ用 */
+.toc-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.toc-title {
+  font-size: 32px;
+  font-weight: bold;
   text-align: center;
+  margin-bottom: 40px;
+}
+
+.toc-list {
+  list-style: none;
+  padding-left: 0;
   font-size: 18px;
-  line-height: 2;
-  padding: 20px 60px;
-  max-height: calc(100vh - 250px); /* ページ番号・余白を除いた高さ */
-  overflow: hidden; /* ページ超えを防止 */
+  line-height: 2.2;
 }
 
+.section-title {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.summary-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.score-summary {
+  font-size: 18px;
+  margin-bottom: 30px;
+}
+
+.score-summary .rank,
+.score-summary .score {
+  font-size: 22px;
+  font-weight: bold;
+  color: #2a2a88;
+}
+
+.chart-section {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
