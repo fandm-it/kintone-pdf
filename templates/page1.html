@@ -1,23 +1,30 @@
-<!-- templates/page1.html -->
 <!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <title>表紙</title>
-  <!-- ⭐ Webフォントを直接読み込む -->
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
-  <!-- ⭐ 組み込みCSS（PDFにも確実に反映） -->
+  <title>組織診断レポート</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
   <style>
     {{{injectedStyle}}}
   </style>
 </head>
 <body>
-  <div class="page">
-    <div class="cover-container">
-      <div class="report-title">組織診断レポート</div>
-      <div class="company-name">サンプル株式会社 御中</div>
-      <div class="create-date">作成日：2025年6月11日</div>
+  <div class="page page1">
+    <div class="top-border"></div>
+
+    <div class="content">
+      <h1 class="title">組織診断レポート</h1>
+      <p class="subtitle">サンプル株式会社 御中</p>
+      <div class="dot-bg"></div>
     </div>
+
+    <div class="bottom-info">
+      <div class="info"><span>作成日：</span>2025/06/11</div>
+      <div class="info"><span>実施人数：</span>2名</div>
+      <div class="info"><span>実施回数：</span>第1回</div>
+    </div>
+
+    <div class="bottom-border"></div>
   </div>
 </body>
 </html>

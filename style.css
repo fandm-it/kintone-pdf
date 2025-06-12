@@ -1,102 +1,78 @@
-/* ⭐ 基本設定 */
 body {
   margin: 0;
-  padding: 0;
   font-family: 'Noto Sans JP', sans-serif;
-  color: #000;
 }
 
-/* ⭐ ページ設定（Legal横・印刷用） */
 .page {
   width: 100%;
   height: 100vh;
-  page-break-after: always;
   box-sizing: border-box;
-  padding: 60px 80px;
+  padding: 60px 60px 40px 60px;
+  position: relative;
+}
+
+.top-border, .bottom-border {
+  border-top: 3px solid #333;
+  border-bottom: 1px solid #333;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.top-border {
+  position: absolute;
+  top: 40px;
+  left: 60px;
+  right: 60px;
+  height: 6px;
+}
+
+.bottom-border {
+  position: absolute;
+  bottom: 40px;
+  left: 60px;
+  right: 60px;
+  height: 6px;
+}
+
+.content {
+  position: relative;
+  margin-top: 120px;
+  padding-left: 40px;
+}
+
+.title {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.subtitle {
+  font-size: 18px;
+  margin-bottom: 40px;
+}
+
+.dot-bg {
+  position: absolute;
+  right: 40px;
+  top: 0;
+  width: 300px;
+  height: 300px;
+  background-image: radial-gradient(rgba(0,0,0,0.05) 15%, transparent 16%);
+  background-size: 16px 16px;
+  transform: rotate(-45deg);
+  opacity: 0.2;
+}
+
+.bottom-info {
+  position: absolute;
+  bottom: 60px;
+  left: 60px;
+  right: 60px;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-between;
+  font-size: 16px;
 }
 
-@media print {
-  @page {
-    size: legal landscape;
-    margin: 0;
-  }
-  body {
-    -webkit-print-color-adjust: exact;
-  }
-}
-
-/* ⭐ 表紙レイアウト */
-.cover-container {
-  text-align: center;
-}
-
-.report-title {
-  font-size: 40px;
-  font-weight: bold;
-  margin-bottom: 60px;
-}
-
-.company-name {
-  font-size: 28px;
-  margin-bottom: 40px;
-}
-
-.create-date {
-  font-size: 20px;
-}
-
-/* 目次ページ用 */
-.toc-container {
-  width: 100%;
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 40px 20px;
-}
-
-.toc-title {
-  font-size: 32px;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 40px;
-}
-
-.toc-list {
-  list-style: none;
-  padding-left: 0;
-  font-size: 18px;
-  line-height: 2.2;
-}
-
-.section-title {
-  font-size: 28px;
-  font-weight: bold;
-  margin-bottom: 20px;
-}
-
-.summary-container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 40px 20px;
-}
-
-.score-summary {
-  font-size: 18px;
-  margin-bottom: 30px;
-}
-
-.score-summary .rank,
-.score-summary .score {
-  font-size: 22px;
-  font-weight: bold;
-  color: #2a2a88;
-}
-
-.chart-section {
-  width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
+.bottom-info .info span {
+  font-weight: 600;
 }
