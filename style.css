@@ -16,9 +16,15 @@ body {
 }
 
 /* ヘッダー線 */
+.page-border-top {
+  margin-top: auto;
+  padding-top: 8px;  /* 太線とページ上端の間 */
+  padding-bottom: 12px;  /* 細線と本文の間 */
+}
 .page-border-top .line-thick {
   border-top: 3px solid #333;
   height: 3px;
+  margin-bottom: 6px;  /* 細線と太線の間隔 */
 }
 .page-border-top .line-thin {
   border-top: 1px solid #333;
@@ -50,10 +56,14 @@ body {
 
 /* ページ番号（共通） */
 .page-footer {
+  position: absolute;
+  right: 40px;
+  bottom: 9px; /* フッター線に食い込ませる位置（調整可） */
+  font-weight: bold;
   font-size: 14px;
-  text-align: right;
-  margin-top: 4px;
-  color: #222;
+  z-index: 2;
+  background-color: white; /* 食い込み部分を白く上書きする（なくてもOK） */
+  padding: 0 4px; /* 数字の読みやすさ確保 */
 }
 
 /* 共通の矢印 */
