@@ -70,13 +70,13 @@ body {
 .page-arrow img {
   position: absolute;
   right: 60px;
-  top: 120px;
+  top: 150px;
   opacity: 0.05;
   width: 300px;
 }
 
 /* ========== cover-page ========== */
-/* 表紙ヘッダー・フッター */
+/* 表紙ヘッダー・フッター 
 .cover-top-border, .cover-bottom-border {
   width: 100%;
 }
@@ -96,12 +96,26 @@ body {
 .cover-bottom-border .bottom-line.thin {
   margin-top: 0px;
 }
+*/
 
 .cover-title-area {
   position: absolute;
-  top: 40%;
-  left: 80px; /* 中央よりやや左に */
-  transform: translateY(-50%);
+  top: 35%;              /* 高さ方向：縦中央より少し上 */
+  left: 60px;            /* 左からの余白（調整可能） */
+  transform: none;       /* 中央配置の解除 */
+}
+
+.cover-title-area h1 {
+  font-size: 36px;
+  margin: 0;
+  font-weight: 700;
+  color: #222;
+}
+
+.cover-title-area p {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #333;
 }
 
 .cover-meta-area {
@@ -112,7 +126,7 @@ body {
   bottom: 80px;  /* さらに下に移動 */
   width: 100%;
   border-top: 1px solid #333;
-  border-bottom: 3px solid #333;
+  /* border-bottom: 3px solid #333; */
   padding: 10px 0;
 }
 
@@ -151,8 +165,8 @@ body {
   line-height: 2.2;
 }
 
-/* 「目次」見出し：縦書き + 黒ボックス */
-.page-heading .heading-text {
+/* 目次ページ専用の見出し */
+.toc-heading .toc-title {
   writing-mode: vertical-rl;
   background-color: #222;
   color: #fff;
@@ -169,24 +183,27 @@ body {
 }
 
 /* ========== section-page ========== */
+/* 通常ページの見出し（番号＋テキスト） */
 .page-heading {
   display: flex;
   align-items: center;
   font-size: 20px;
   font-weight: bold;
   margin-bottom: 8px;
+  margin-left: 60px; /* 左端から少し右に */
 }
 
-.page-heading .heading-number {
+.page-heading .section-number {
   background-color: #222;
   color: white;
   padding: 6px 12px;
   margin-right: 12px;
 }
 
-.page-heading-line {
-  border-bottom: 1px solid #333;
-  margin: 0 0 16px 0;
+.page-heading .section-title {
+  color: #222;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 /* === 本文ページ === */
