@@ -13,11 +13,13 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  position: relative;
 }
 
 /* ヘッダー線 */
 .page-border-top {
-  margin-top: auto;
+  position: absolute;
+  top: 40px;
   padding-top: 8px;  /* 太線とページ上端の間 */
   padding-bottom: 12px;  /* 細線と本文の間 */
 }
@@ -32,7 +34,7 @@ body {
 }
 
 /* 見出し下線 */
-.heading-underline {
+.section-underline {
   border-bottom: 1px solid #666;
   margin: 12px 0 24px 0;
   width: 100%;
@@ -40,9 +42,12 @@ body {
 
 /* フッター線 */
 .page-border-bottom {
-  margin-top: auto;
-  padding-top: 8px;  /* 太線と本文の間 */
-  padding-bottom: 12px;  /* 細線とページ下端の間 */
+  position: absolute;
+  bottom: 40px;  /* ページ下からの距離。必要に応じて微調整 */
+  left: 0;
+  right: 0;
+  padding-top: 8px;
+  padding-bottom: 12px;
 }
 .page-border-bottom .line-thin {
   border-top: 1px solid #333;
@@ -57,8 +62,8 @@ body {
 /* ページ番号（共通） */
 .page-footer {
   position: absolute;
-  right: 40px;
-  bottom: 9px; /* フッター線に食い込ませる位置（調整可） */
+  right: 70px;
+  bottom: 40px; /* フッター線に食い込ませる位置（調整可） */
   font-weight: bold;
   font-size: 14px;
   z-index: 2;
@@ -67,12 +72,17 @@ body {
 }
 
 /* 共通の矢印 */
+.page-arrow {
+  position: relative;
+}
+
 .page-arrow img {
   position: absolute;
   right: 60px;
-  top: 150px;
+  top: 50%;
+  transform: translateY(-50%);
   opacity: 0.05;
-  width: 300px;
+  width: 400px;
 }
 
 /* ========== cover-page ========== */
@@ -101,7 +111,7 @@ body {
 .cover-title-area {
   position: absolute;
   top: 35%;              /* 高さ方向：縦中央より少し上 */
-  left: 60px;            /* 左からの余白（調整可能） */
+  left: 200px;            /* 左からの余白（調整可能） */
   transform: none;       /* 中央配置の解除 */
 }
 
