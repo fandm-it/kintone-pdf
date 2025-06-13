@@ -39,60 +39,12 @@ body {
 /* ページ番号（右下） */
 .page-number {
   position: absolute;
-  right: 10px;
+  right: 3px;
   bottom: 6px;
   font-size: 12px;
-  background: white;
-  padding: 0 4px;
-  z-index: 1;
 }
 
-/* ------------------------------
-  セクションヘッダー
------------------------------- */
-.section-header {
-  display: flex;
-  align-items: center;
-  margin-top: 8%;
-  padding-left: 10px;
-}
-
-.section-label {
-  background-color: rgb(38, 38, 38);
-  color: white;
-  font-size: 26px;
-  padding: 0px 10px;
-  font-weight: 700;
-  margin-right: 10px;
-}
-
-.section-title {
-  font-size: 24px;
-  font-weight: 700;
-}
-
-.section-border {
-  border-top: 1px solid rgb(38, 38, 38);
-  margin: 4px 10px 8px;
-}
-
-/* ------------------------------
-  画像表示共通
------------------------------- */
-.image-center {
-  text-align: center;
-  margin-top: 20px;
-}
-
-.image-center img {
-  max-width: 60%;
-  height: auto;
-}
-
-
-/* ------------------------------
-  page1 表紙
------------------------------- */
+/* page1 表紙 */
 .page-cover .title {
   font-size: 48px;
   font-weight: 700;
@@ -114,9 +66,7 @@ body {
   width: 100px;
 }
 
-/* ------------------------------
-  page2 目次
------------------------------- */
+/* page2 目次 */
 .page-toc .toc-label {
   writing-mode: vertical-rl;
   background-color: rgb(38, 38, 38);
@@ -144,9 +94,33 @@ body {
   width: 100px;
 }
 
-/* ------------------------------
-  page3 はじめに 01
------------------------------- */
+/* page3 本文レイアウト */
+.section-header {
+  display: flex;
+  align-items: center;
+  margin-top: 12px;
+  padding-left: 10px;
+}
+
+.section-label {
+  background-color: rgb(38, 38, 38);
+  color: white;
+  font-size: 26px;
+  padding: 4px 12px;
+  font-weight: 700;
+  margin-right: 12px;
+}
+
+.section-title {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.section-border {
+  border-top: 1px solid rgb(38, 38, 38);
+  margin: 10px 10px 20px;
+}
+
 .intro-content {
   text-align: center;
   max-width: 80%;
@@ -155,14 +129,10 @@ body {
   font-size: 18px;
 }
 
-/* カラータグ */
-.tag { font-weight: bold; }
-.tag-red { color: #E03C31; }
-.tag-orange { color: #F28C28; }
-.tag-yellow { color: #FBB040; }
-.tag-green { color: #5BA829; }
-.tag-teal { color: #3FA9F5; }
-.tag-purple { color: #8664C6; }
+.highlight {
+  color: #1a73e8; /* 強調色はPDFに近い青を仮指定。後で変更可 */
+  font-weight: 700;
+}
 
 .intro-image {
   text-align: center;
@@ -173,7 +143,6 @@ body {
   max-width: 300px;
   height: auto;
 }
-
 
 
 .weaknesses-columns,
@@ -307,9 +276,6 @@ body {
 }
 
 
-/* ------------------------------
-  page12 回答の集計結果 10
------------------------------- */
 .results-table {
   padding: 10px 20px;
 }
@@ -333,25 +299,23 @@ body {
   height: 40px;
 }
 
-/* ------------------------------
-  page16 サービス紹介 11
------------------------------- */
 .service-columns {
   display: flex;
-  justify-content: space-around;
-  align-items: flex-start;
+  justify-content: space-between;
+  padding: 20px 10px;
   gap: 20px;
-  padding: 20px 40px;
 }
 
 .service-block {
   flex: 1;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .service-block img {
-  width: 100%;
-  max-width: 200px;
+  max-width: 100%;
+  height: auto;
   border: 1px solid #ccc;
-  border-radius: 8px;
+  border-radius: 6px;
 }
