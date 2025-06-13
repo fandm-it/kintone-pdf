@@ -62,11 +62,11 @@ html, body {
 /* ページ番号（右下） */
 .page-number {
   position: absolute;
-  bottom: 1px;         /* 太線の上にぴったり乗せる */
-  right: 10px;
+  bottom: -20px;         /* 太線の上にぴったり乗せる */
+  right: 0px;
   font-size: 16px;
   background: white;   /* 細線が透けないように */
-  padding: 0 10px;
+  padding: 0 20px 8px;
   line-height: 1;
 }
 
@@ -74,9 +74,10 @@ html, body {
   セクションヘッダー
 ------------------------------ */
 .section-header {
+  position: relative;
   display: flex;
   align-items: center;
-  margin-top: 10px;
+  height: 80px;
   padding-left: 10px;
 }
 
@@ -84,20 +85,25 @@ html, body {
   background-color: rgb(38, 38, 38);
   color: white;
   font-size: 26px;
-  height:60px;
-  padding: 0px 10px;
   font-weight: 700;
+  padding: 30px 10px 0px;
   margin-right: 10px;
+  height: 80px;
+  display: flex;
+  align-items: center;
 }
 
 .section-title {
   font-size: 24px;
   font-weight: 700;
+  display: flex;
+  align-items: center;
+  padding: 30px 10px 0px;
 }
 
 .section-border {
   border-top: 1px solid rgb(38, 38, 38);
-  margin: 4px 0px 8px;
+  margin: 0px 0px 8px;
 }
 
 /* ------------------------------
