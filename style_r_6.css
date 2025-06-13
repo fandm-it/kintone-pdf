@@ -24,7 +24,7 @@ html, body {
 /* ヘッダー装飾線 */
 .page-border-top {
   position: absolute;
-  top: 30px;
+  top: 10px;
   left: 3px;
   right: 3px;
 }
@@ -32,7 +32,7 @@ html, body {
 .page-border-top .line-thick {
   border-top: 3px solid rgb(38, 38, 38);
   height: 3px;
-  margin-bottom: 10px;
+  margin-bottom: 6px;
 }
 
 .page-border-top .line-thin {
@@ -43,7 +43,7 @@ html, body {
 /* フッター装飾線 */
 .page-border-bottom {
   position: absolute;
-  bottom: 30px;  /* ← ページ最下部から固定 */
+  bottom: 10px;  /* ← ページ最下部から固定 */
   left: 3px;
   right: 3px;
 }
@@ -51,7 +51,7 @@ html, body {
 .page-border-bottom .line-thin {
   border-top: 1px solid rgb(38, 38, 38);
   height: 1px;
-  margin-bottom: 10px;
+  margin-bottom: 6px;
 }
 
 .page-border-bottom .line-thick {
@@ -84,7 +84,6 @@ html, body {
   background-color: rgb(38, 38, 38);
   color: white;
   font-size: 26px;
-  height:60px;
   padding: 0px 10px;
   font-weight: 700;
   margin-right: 10px;
@@ -97,7 +96,7 @@ html, body {
 
 .section-border {
   border-top: 1px solid rgb(38, 38, 38);
-  margin: 4px 0px 8px;
+  margin: 4px 10px 8px;
 }
 
 /* ------------------------------
@@ -136,9 +135,7 @@ html, body {
   top: 50%;
   transform: translateY(-50%);
   width: 100px;
-  opacity: 0.05;
 }
-
 
 /* ------------------------------
   page2 目次
