@@ -17,8 +17,12 @@
   <h1 class="title">組織診断レポート</h1>
   <div class="cover-info">
     <p class="company">{{企業名}}</p>
-    <p class="date">作成日：{{作成日}}</p>
-    <p class="info">実施人数：{{実施人数}}　実施回数：{{実施回数}}</p>
+    <div class="cover-meta-border"></div>
+    <p class="footer-meta">
+      <span class="meta">作成日：{{作成日}}</span>
+      <span class="meta">実施人数：{{実施人数}}</span>
+      <span class="meta">実施回数：{{実施回数}}</span>
+    </p>
   </div>
   <div class="cover-image">
     <img src="{{arrow}}" alt="arrow" />
@@ -29,3 +33,422 @@
   </div>
 </body>
 </html>
+
+<style>
+/* ------------------------------
+  共通設定
+------------------------------ */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 16px;
+  color: rgb(38, 38, 38);
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.page {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 10px 3px;
+}
+
+/* ヘッダー装飾線 */
+.page-border-top {
+  position: absolute;
+  top: 60px;
+  left: 10px;
+  right: 10px;
+}
+
+.page-border-top .line-thick {
+  border-top: 5px solid rgb(38, 38, 38);
+  margin-bottom: 15px;
+}
+
+.page-border-top .line-thin {
+  border-top: 3px solid rgb(38, 38, 38);
+}
+
+/* フッター装飾線 */
+.page-border-bottom {
+  position: absolute;
+  bottom: 40px;  /* ← ページ最下部から固定 */
+  left: 10px;
+  right: 10px;
+}
+
+.page-border-bottom .line-thin {
+  border-top: 3px solid rgb(38, 38, 38);
+  height: 3px;
+  margin-bottom: 15px;
+}
+
+.page-border-bottom .line-thick {
+  border-top: 5px solid rgb(38, 38, 38);
+  position: relative;
+}
+
+/* ページ番号（右下） */
+.page-number {
+  position: absolute;
+  bottom: -10px;         /* 太線の上にぴったり乗せる */
+  right: 0px;
+  font-size: 16px;
+  background: white;   /* 細線が透けないように */
+  padding: 0 20px 8px;
+  line-height: 1;
+}
+
+/* ------------------------------
+  セクションヘッダー
+------------------------------ */
+.section-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 130px;
+  padding-left: 30px;
+}
+
+.section-label {
+  background-color: rgb(38, 38, 38);
+  color: white;
+  font-size: 26px;
+  font-weight: 700;
+  padding: 30px 10px 0px;
+  margin-top: 40px;
+  margin-right: 10px;
+  height: 90px;
+  display: flex;
+  align-items: center;
+}
+
+.section-title {
+  font-size: 24px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  padding: 70px 10px 0px;
+}
+
+.section-border {
+  border-top: 1px solid rgb(38, 38, 38);
+  margin: 0px 10px 8px;
+}
+
+/* ------------------------------
+  画像表示共通
+------------------------------ */
+.image-center {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.image-center img {
+  max-width: 60%;
+  height: auto;
+}
+
+
+/* ------------------------------
+  page1 表紙
+------------------------------ */
+.page-cover .title {
+  position: absolute;
+  top: 30%;
+  left: 100px;
+  font-size: 48px;
+  font-weight: 700;
+  text-align: center;
+  margin: 0;
+}
+
+.cover-info .company {
+  position: absolute;
+  top: calc(30% + 100px); /* タイトルの下に配置（48px + margin） */
+  left: 100px;
+  font-size: 20px;
+  margin: 0;
+}
+
+.footer-meta {
+  position: absolute;
+  bottom: 70px; /* フッター太線の上 */
+  left: 50px;
+  width: calc(100% - 80px); /* 左右40pxを均等余白 */
+  display: flex;
+  justify-content: space-between;
+  font-size: 20px;
+}
+
+.footer-meta .meta {
+  flex: 1;
+  text-align: center;
+}
+
+.cover-meta-border {
+  position: absolute;
+  bottom: 140px;
+  left: 10px;
+  right: 10px;
+  border-top: 3px solid #333;
+}
+
+.page-cover .cover-image {
+  position: absolute;
+  right: 30%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100px;
+  opacity: 0.05;
+}
+
+
+/* ------------------------------
+  page2 目次
+------------------------------ */
+.page-toc .toc-label {
+  writing-mode: vertical-rl;
+  background-color: rgb(38, 38, 38);
+  color: white;
+  font-size: 36px;
+  padding: 8px 4px;
+  position: absolute;
+  top: 8px;
+  left: 100px;
+}
+
+.page-toc .toc-list {
+  list-style: none;
+  padding: 80px 40px;
+  margin-left: 350px;
+  font-size: 18px;
+  line-height: 2;
+}
+
+.page-toc .cover-image {
+  position: absolute;
+  right: 10%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100px;
+}
+
+/* ------------------------------
+  page3 はじめに 01
+------------------------------ */
+.intro-content {
+  text-align: center;
+  max-width: 80%;
+  margin: 0 auto 30px;
+  line-height: 2;
+  font-size: 18px;
+}
+
+/* カラータグ */
+.tag { font-weight: bold; }
+.tag-red { color: #E03C31; }
+.tag-orange { color: #F28C28; }
+.tag-yellow { color: #FBB040; }
+.tag-green { color: #5BA829; }
+.tag-teal { color: #3FA9F5; }
+.tag-purple { color: #8664C6; }
+
+.intro-image {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.intro-image img {
+  max-width: 300px;
+  height: auto;
+}
+
+
+
+.weaknesses-columns,
+.strengths-columns {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px 10px;
+}
+
+.weakness-block,
+.strengths-block {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: left;
+  font-size: 16px;
+}
+
+.image-wrapper img {
+  width: 100px;
+  height: auto;
+  margin-bottom: 12px;
+}
+
+.text-wrapper p {
+  margin-bottom: 10px;
+  line-height: 1.7;
+}
+
+.strength-action-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 24px;
+  padding: 20px 10px;
+}
+
+.strength-action-cell {
+  border: 1px solid #ccc;
+  padding: 16px;
+  border-radius: 8px;
+  background-color: #f4faff;
+}
+
+.strength-action-cell h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.strength-action-cell p {
+  font-size: 15px;
+  line-height: 1.8;
+  margin-bottom: 10px;
+}
+
+.weakness-action-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  padding: 20px 10px;
+}
+
+.weakness-action-cell {
+  border: 1px solid #ccc;
+  padding: 16px;
+  border-radius: 8px;
+  background-color: #fff5f5;
+}
+
+.weakness-action-cell h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.weakness-action-cell p {
+  font-size: 15px;
+  line-height: 1.8;
+  margin-bottom: 10px;
+}
+
+.theory-description {
+  padding: 20px 40px;
+  font-size: 16px;
+  line-height: 2;
+}
+
+.theory-graphic {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.theory-graphic img {
+  max-width: 80%;
+  height: auto;
+}
+
+
+.analysis-chart {
+  padding: 20px 40px;
+  text-align: center;
+}
+
+.analysis-grid {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 40px;
+  gap: 40px;
+}
+
+.analysis-table table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.analysis-table th,
+.analysis-table td {
+  border: 1px solid #aaa;
+  padding: 8px;
+  text-align: left;
+  font-size: 14px;
+}
+
+.analysis-note {
+  padding: 20px 40px;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+
+/* ------------------------------
+  page12 回答の集計結果 10
+------------------------------ */
+.results-table {
+  padding: 10px 20px;
+}
+
+.results-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  table-layout: fixed;
+}
+
+.results-table th,
+.results-table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  vertical-align: top;
+}
+
+.results-table td canvas {
+  width: 100%;
+  height: 40px;
+}
+
+/* ------------------------------
+  page16 サービス紹介 11
+------------------------------ */
+.service-columns {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 20px 40px;
+}
+
+.service-block {
+  flex: 1;
+  text-align: center;
+}
+
+.service-block img {
+  width: 100%;
+  max-width: 200px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+</style>

@@ -8,8 +8,9 @@
   <style>
     {{{injectedStyle}}}
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body class="page page-radar">
+<body class="page page-criteria">
   <div class="page-border-top">
     <div class="line-thick"></div>
     <div class="line-thin"></div>
@@ -21,30 +22,39 @@
   </div>
   <div class="section-border"></div>
 
-  <div class="evaluation-body">
-    <div class="evaluation-left">
+  <div class="criteria-content">
+    <!-- 左：レーダーチャート -->
+    <div class="criteria-left">
       <canvas id="radarChart"></canvas>
     </div>
 
-    <div class="evaluation-right">
-      <table class="evaluation-table">
+    <!-- 右：表と説明 -->
+    <div class="criteria-right">
+      <table class="criteria-table">
         <thead>
           <tr><th>項目名</th><th>ランク</th><th>スコア</th><th>前回</th><th>変化</th></tr>
         </thead>
-        <tbody>
-          <tr><td>リーダーシップ</td><td>A</td><td>81</td><td>80</td><td>+1</td></tr>
-          <tr><td>スタッフの主体性</td><td>A</td><td>80</td><td>70</td><td>+10</td></tr>
-          <tr><td>仕事のやりがい</td><td>A</td><td>78</td><td>75</td><td>+3</td></tr>
-          <tr><td>チーム力</td><td>B</td><td>74</td><td>67</td><td>+7</td></tr>
-          <tr><td>評価と報酬</td><td>A</td><td>78</td><td>60</td><td>+18</td></tr>
-          <tr><td>チームの風土・環境</td><td>A</td><td>77</td><td>76</td><td>+1</td></tr>
-        </tbody>
+        <tbody></tbody>
+
+        <!-- ブラウザテスト用 -->
+        <!-- <tbody>
+          <tr><td class="bg-lead">リーダーシップ</td><td>A</td><td>81</td><td>80</td><td>↑1</td></tr>
+          <tr><td class="bg-active">スタッフの主体性</td><td>A</td><td>80</td><td>70</td><td>↑10</td></tr>
+          <tr><td class="bg-motivation">仕事のやりがい</td><td>A</td><td>78</td><td>75</td><td>↑3</td></tr>
+          <tr><td class="bg-team">チーム力</td><td>A</td><td>77</td><td>76</td><td>↑1</td></tr>
+          <tr><td class="bg-reward">評価と報酬</td><td>B</td><td>74</td><td>67</td><td>↑7</td></tr>
+          <tr><td class="bg-culture">チームの風土・環境</td><td>A</td><td>78</td><td>60</td><td>↑18</td></tr>
+        </tbody> -->
       </table>
-      <p class="evaluation-comment">
-        リーダーシップは「リーダー（経営者）がどれだけ効果的にチームを導いているか」を測定する要素です。<br>
-        スタッフの主体性は「自発的な行動・挑戦」の度合いを測定します。<br>
-        評価と報酬は「仕事ぶりに対する適切な評価や報酬の有無」を反映します。
-      </p>
+
+      <div class="criteria-description">
+        <p><span class="color-lead">リーダーシップ</span><br>リーダー（経営者）がどれだけ効果的にチームを導いているかを測定する要素</p>
+        <p><span class="color-active">スタッフの主体性</span><br>スタッフが自発的に行動し、改善提案や新しい挑戦に積極的かどうかを測定する要素</p>
+        <p><span class="color-motivation">仕事のやりがい</span><br>スタッフが仕事を通じてどれだけやりがいや満足感を感じているかを測定する要素</p>
+        <p><span class="color-team">チーム力</span><br>チーム全体の力（技術・知識・対応力・相互理解）がどれだけあるかを測定する要素</p>
+        <p><span class="color-reward">評価と報酬</span><br>スタッフの仕事ぶりに対して、適切な評価や報酬が行われているかを測定する要素</p>
+        <p><span class="color-culture">チームの風土・環境</span><br>組織全体やチームの文化、職場の雰囲気を測定する要素</p>
+      </div>
     </div>
   </div>
 
@@ -53,5 +63,148 @@
     <div class="line-thick"></div>
     <div class="page-number">05/17</div>
   </div>
+
+  <!-- 本番用 -->
+  <script>
+    const currentData = {
+      leadership: 81,
+      initiative: 80,
+      motivation: 78,
+      teamwork: 77,
+      evaluation: 74,
+      environment: 78
+    };
+
+    const previousData = {
+      leadership: 80,
+      initiative: 70,
+      motivation: 75,
+      teamwork: 76,
+      evaluation: 67,
+      environment: 60
+    };
+
+    const labels = ['リーダーシップ', 'スタッフの主体性', '仕事のやりがい', 'チーム力', '評価と報酬', 'チームの風土・環境'];
+
+    const colorClasses = ['bg-lead', 'bg-active', 'bg-motivation', 'bg-team', 'bg-reward', 'bg-culture'];
+
+    const ranks = ['A', 'A', 'A', 'A', 'B', 'A'];
+
+    const radar = new Chart(document.getElementById('radarChart'), {
+      type: 'radar',
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: '今回のスコア',
+            data: Object.values(currentData),
+            borderColor: 'rgb(255, 80, 80)',
+            backgroundColor: 'rgba(255, 80, 80, 0.1)',
+            pointBackgroundColor: 'rgb(255, 80, 80)',
+            tension: 0.3
+          },
+          {
+            label: '前回のスコア',
+            data: Object.values(previousData),
+            borderColor: 'rgb(128, 128, 128)',
+            backgroundColor: 'rgba(128, 128, 128, 0.05)',
+            borderDash: [5, 5],
+            pointBackgroundColor: 'rgb(128, 128, 128)',
+            tension: 0.3
+          }
+        ]
+      },
+      options: {
+        scales: {
+          r: {
+            beginAtZero: true,
+            max: 100,
+            ticks: {
+              stepSize: 10,
+              backdropColor: 'transparent'
+            },
+            pointLabels: {
+              font: {
+                size: 14
+              }
+            }
+          }
+        },
+        plugins: {
+          legend: false
+        }
+      }
+    });
+
+    // 表生成
+    const tbody = document.querySelector('#criteriaTable tbody');
+    const keys = Object.keys(currentData);
+
+    keys.forEach((key, index) => {
+      const current = currentData[key];
+      const previous = previousData[key];
+      const diff = current - previous;
+      const arrow = diff > 0 ? '↑' : diff < 0 ? '↓' : '-';
+
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td class="${colorClasses[index]}">${labels[index]}</td>
+        <td>${ranks[index]}</td>
+        <td>${current}</td>
+        <td>${previous}</td>
+        <td>${arrow}${Math.abs(diff)}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  </script>
+
+  <!-- ブラウザテスト用 -->
+  <!-- <script>
+    const radar = new Chart(document.getElementById('radarChart'), {
+      type: 'radar',
+      data: {
+        labels: ['リーダーシップ', 'スタッフの主体性', '仕事のやりがい', 'チーム力', '評価と報酬', 'チームの風土・環境'],
+        datasets: [
+          {
+            label: '今回のスコア',
+            data: [81, 80, 78, 77, 74, 78],
+            borderColor: 'rgb(255, 80, 80)',
+            backgroundColor: 'rgba(255, 80, 80, 0.1)',
+            pointBackgroundColor: 'rgb(255, 80, 80)',
+            tension: 0.3
+          },
+          {
+            label: '前回のスコア',
+            data: [80, 70, 75, 76, 67, 60],
+            borderColor: 'rgb(128, 128, 128)',
+            backgroundColor: 'rgba(128, 128, 128, 0.05)',
+            borderDash: [5, 5],
+            pointBackgroundColor: 'rgb(128, 128, 128)',
+            tension: 0.3
+          }
+        ]
+      },
+      options: {
+        scales: {
+          r: {
+            beginAtZero: true,
+            max: 100,
+            ticks: {
+              stepSize: 10,
+              backdropColor: 'transparent'
+            },
+            pointLabels: {
+              font: {
+                size: 14
+              }
+            }
+          }
+        },
+        plugins: {
+          legend: false
+        }
+      }
+    });
+  </script> -->
 </body>
 </html>

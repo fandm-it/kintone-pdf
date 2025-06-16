@@ -8,6 +8,9 @@
   <style>
     {{{injectedStyle}}}
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="assets/chart-config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script> 
 </head>
 <body class="page page-summary">
   <div class="page-border-top">
@@ -21,48 +24,170 @@
   </div>
   <div class="section-border"></div>
 
-  <div class="summary-tables">
-    <div class="summary-table-1">
-      <!-- 表1：変数入力 -->
-      <table>
-        <thead>
-          <tr><th>実施日</th><th>総合ランク</th><th>総合スコア</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>2023/6/1</td><td>A</td><td>78</td></tr>
-          <tr><td>2023/12/1</td><td>B</td><td>66</td></tr>
-          <tr><td>2024/6/1</td><td>B</td><td>79</td></tr>
-          <tr><td>2024/12/1</td><td>A</td><td>68</td></tr>
-          <tr><td>2025/6/4</td><td>B</td><td>72</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="summary-table-2">
-      <!-- 表2：ランク別コメント -->
-      <table>
-        <thead>
-          <tr><th>ランク</th><th>総合スコア</th><th>評価コメント</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>S</td><td>90～100点</td><td>非常に優れた組織。強みを活かしつつ成長を続ける状態</td></tr>
-          <tr><td>A</td><td>75～89点</td><td>良好な組織だが、一部改善の余地あり</td></tr>
-          <tr><td>B</td><td>60～74点</td><td>平均的な状態。課題を特定し改善するとさらに良くなる</td></tr>
-          <tr><td>C</td><td>40～59点</td><td>課題が多く、組織改善が必要な状態</td></tr>
-          <tr><td>D</td><td>0～39点</td><td>重大な問題あり。早急な対策が必要</td></tr>
-        </tbody>
-      </table>
-    </div>
+  <div class="score-section">
+    <table class="score-summary">
+      <thead>
+        <tr><th>総合ランク</th><th>総合スコア</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>A</td><td>79</td></tr>
+      </tbody>
+    </table>    
+    <table class="score-detail">
+      <thead>
+        <tr><th>総合スコア</th><th>ランク</th><th>評価コメント</th></tr>
+      </thead>
+      <tbody>
+        <tr class="{{rankClass('S')}}">
+          <td>90～100点</td><td>S</td><td>非常に優れた組織。強みを活かしつつ成長を続ける状態</td>
+        </tr>
+        <tr class="{{rankClass('A')}}">
+          <td>75～89点</td><td>A</td><td>良好な組織だが、一部改善の余地あり</td>
+        </tr>
+        <tr class="{{rankClass('B')}}">
+          <td>60～74点</td><td>B</td><td>平均的な状態。課題を特定し改善するとさらに良くなる</td>
+        </tr>
+        <tr class="{{rankClass('C')}}">
+          <td>40～59点</td><td>C</td><td>課題が多く、組織改善が必要な状態</td>
+        </tr>
+        <tr class="{{rankClass('D')}}">
+          <td>0～39点</td><td>D</td><td>重大な問題あり。早急な対策が必要</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
-  <div class="summary-graph">
+  <div class="chart-container">
     <canvas id="lineChart"></canvas>
-    <!-- グラフは Chart.js にて別途スクリプト挿入 -->
   </div>
+
+  <!-- 本番用 -->
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>実施日</th>
+        {{#each dates}}
+        <td>{{this}}</td>
+        {{/each}}
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>総合ランク</th>
+        {{#each ranks}}
+        <td>{{this}}</td>
+        {{/each}}
+      </tr>
+      <tr>
+        <th>総合スコア</th>
+        {{#each scores}}
+        <td>{{this}}</td>
+        {{/each}}
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ブラウザテスト用 -->
+  <!-- <table class="data-table">
+    <thead>
+      <tr>
+        <th>実施日</th>
+        <td>2023/6/1</td><td>2023/12/1</td><td>2024/6/1</td><td>2024/12/1</td><td>2025/6/4</td>
+        <td></td><td></td><td></td><td></td><td></td><td></td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>総合ランク</th>
+        <td>B</td><td>A</td><td>B</td><td>B</td><td>A</td>
+        <td></td><td></td><td></td><td></td><td></td><td></td>
+      </tr>
+      <tr>
+        <th>総合スコア</th>
+        <td>66</td><td>79</td><td>68</td><td>72</td><td>78</td>
+        <td></td><td></td><td></td><td></td><td></td><td></td>
+      </tr>
+    </tbody>
+  </table> -->
 
   <div class="page-border-bottom">
     <div class="line-thin"></div>
     <div class="line-thick"></div>
     <div class="page-number">04/17</div>
   </div>
+
+  <!-- 本番用 -->
+  <script>
+    // Chart.js描画
+    renderLineChart('lineChart',
+      {
+        labels: {{json dates}},  // 11要素
+        datasets: [{
+          data: {{json scores}},
+          borderColor: 'rgb(255,80,80)',
+          pointBackgroundColor: 'rgb(255,80,80)',
+          tension: 0.2,
+          fill: false
+        }]
+      },
+      {
+        scales: {
+          y: { beginAtZero: true, max: 100 },
+          x: {
+            offset: true, // ← これで左右にパディングがつきます！
+            ticks: { autoSkip: false } }
+          },
+        plugins: {
+          legend: false,
+          datalabels: {
+            anchor: 'end',
+            align: 'top',
+            color: '#000',
+            font: { size: 12 }
+          }
+        },
+        maintainAspectRatio: false // 👈 高さ固定に必須
+      }
+    );
+  </script>
+  <!-- ブラウザテスト用 -->
+  <!-- <script>
+    const ctx = document.getElementById('lineChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['2023/6/1', '2023/12/1', '2024/6/1', '2024/12/1', '2025/6/4',
+                '', '', '', '', '', ''],
+        datasets: [{
+          data: [66, 79, 68, 72, 78, null, null, null, null, null, null],
+          borderColor: 'rgb(255,80,80)',
+          pointBackgroundColor: 'rgb(255,80,80)',
+          tension: 0.2,
+          fill: false
+        }]
+      },
+      options: {
+        maintainAspectRatio: false, // 👈 高さ固定に必須
+        scales: {
+          y: { beginAtZero: true, max: 100 },
+          x: { 
+            offset: true, // ← これで左右にパディングがつきます！
+            ticks: { autoSkip: false }
+          }
+        },
+        plugins: {
+          legend: false,
+          datalabels: {
+            anchor: 'end',
+            align: 'top',
+            color: '#000',
+            font: { size: 12 }
+          }
+        },
+      },
+      plugins: [ChartDataLabels]
+    });
+  </script> -->
+
 </body>
 </html>

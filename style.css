@@ -1,3 +1,4 @@
+
 /* ------------------------------
   共通設定
 ------------------------------ */
@@ -24,45 +25,43 @@ html, body {
 /* ヘッダー装飾線 */
 .page-border-top {
   position: absolute;
-  top: 30px;
-  left: 3px;
-  right: 3px;
+  top: 60px;
+  left: 10px;
+  right: 10px;
 }
 
 .page-border-top .line-thick {
-  border-top: 3px solid rgb(38, 38, 38);
-  height: 3px;
-  margin-bottom: 10px;
+  border-top: 5px solid rgb(38, 38, 38);
+  margin-bottom: 15px;
 }
 
 .page-border-top .line-thin {
-  border-top: 1px solid rgb(38, 38, 38);
-  height: 1px;
+  border-top: 3px solid rgb(38, 38, 38);
 }
 
 /* フッター装飾線 */
 .page-border-bottom {
   position: absolute;
-  bottom: 30px;  /* ← ページ最下部から固定 */
-  left: 3px;
-  right: 3px;
+  bottom: 40px;  /* ← ページ最下部から固定 */
+  left: 10px;
+  right: 10px;
 }
 
 .page-border-bottom .line-thin {
-  border-top: 1px solid rgb(38, 38, 38);
-  height: 1px;
-  margin-bottom: 10px;
+  border-top: 3px solid rgb(38, 38, 38);
+  height: 3px;
+  margin-bottom: 15px;
 }
 
 .page-border-bottom .line-thick {
-  border-top: 3px solid rgb(38, 38, 38);
-  height: 3px;
+  border-top: 5px solid rgb(38, 38, 38);
   position: relative;
 }
+
 /* ページ番号（右下） */
 .page-number {
   position: absolute;
-  bottom: -20px;         /* 太線の上にぴったり乗せる */
+  bottom: -10px;         /* 太線の上にぴったり乗せる */
   right: 0px;
   font-size: 16px;
   background: white;   /* 細線が透けないように */
@@ -77,8 +76,8 @@ html, body {
   position: relative;
   display: flex;
   align-items: center;
-  height: 80px;
-  padding-left: 10px;
+  height: 130px;
+  padding-left: 30px;
 }
 
 .section-label {
@@ -87,8 +86,9 @@ html, body {
   font-size: 26px;
   font-weight: 700;
   padding: 30px 10px 0px;
+  margin-top: 40px;
   margin-right: 10px;
-  height: 80px;
+  height: 90px;
   display: flex;
   align-items: center;
 }
@@ -98,12 +98,12 @@ html, body {
   font-weight: 700;
   display: flex;
   align-items: center;
-  padding: 30px 10px 0px;
+  padding: 70px 10px 0px;
 }
 
 .section-border {
   border-top: 1px solid rgb(38, 38, 38);
-  margin: 0px 0px 8px;
+  margin: 0px 10px 8px;
 }
 
 /* ------------------------------
@@ -124,21 +124,49 @@ html, body {
   page1 表紙
 ------------------------------ */
 .page-cover .title {
+  position: absolute;
+  top: 30%;
+  left: 100px;
   font-size: 48px;
   font-weight: 700;
   text-align: center;
-  margin: 120px 0 40px;
+  margin: 0;
 }
 
-.page-cover .cover-info {
-  text-align: center;
+.cover-info .company {
+  position: absolute;
+  top: calc(30% + 100px); /* タイトルの下に配置（48px + margin） */
+  left: 100px;
   font-size: 20px;
-  line-height: 1.8;
+  margin: 0;
+}
+
+.footer-meta {
+  position: absolute;
+  bottom: 70px; /* フッター太線の上 */
+  left: 50px;
+  width: calc(100% - 80px); /* 左右40pxを均等余白 */
+  display: flex;
+  justify-content: space-between;
+  font-size: 20px;
+}
+
+.footer-meta .meta {
+  flex: 1;
+  text-align: center;
+}
+
+.cover-meta-border {
+  position: absolute;
+  bottom: 140px;
+  left: 10px;
+  right: 10px;
+  border-top: 3px solid #333;
 }
 
 .page-cover .cover-image {
   position: absolute;
-  right: 10%;
+  right: 30%;
   top: 50%;
   transform: translateY(-50%);
   width: 100px;
@@ -151,21 +179,33 @@ html, body {
 ------------------------------ */
 .page-toc .toc-label {
   writing-mode: vertical-rl;
+  letter-spacing: 0.3em; 
   background-color: rgb(38, 38, 38);
   color: white;
   font-size: 36px;
-  padding: 8px 4px;
+  font-weight: 700;
+  padding: 50px 10px 20px;
   position: absolute;
-  top: 8px;
-  left: 20px;
+  margin-top: 40px;
+  left: 100px;
+  height: 180px;
 }
 
 .page-toc .toc-list {
   list-style: none;
-  padding: 80px 40px;
-  margin-left: 80px;
-  font-size: 18px;
-  line-height: 2;
+  position: absolute;
+  font-size: 24px;
+  font-weight: 1000;
+  top: 200px;        /* ヘッダーからの余白 */
+  bottom: 200px;     /* フッターとの余白 */
+  left: 30%;
+  right: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* 均等配置 */
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .page-toc .cover-image {
@@ -206,6 +246,139 @@ html, body {
   height: auto;
 }
 
+/* ------------------------------
+  page4 総合評価 02
+------------------------------ */
+.score-section {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px;
+  text-align: center;
+}
+
+.score-summary {
+  width: 100%;
+  max-width: 300px; /* 表の横幅を適度に制限 */
+  border-collapse: collapse;
+  font-size: 18px;
+  text-align: center;
+}
+
+.score-summary th {
+  color: rgb(38, 38, 38);
+  padding: 12px;
+  border: 1px solid rgb(200, 200, 200);
+  font-weight: 700;
+}
+
+.score-summary td {
+  font-size: 72px;
+  font-weight: bold;
+  padding: 20px;
+  border: 1px solid rgb(200, 200, 200);
+}
+
+.score-detail {
+  border-collapse: collapse;
+  width: 60%;
+  font-size: 14px;
+}
+
+.score-detail th {
+  background-color: rgb(89,89,89);
+  color: #fff;
+  padding: 8px;
+}
+
+.score-detail td {
+  background-color: rgb(242,242,242);
+  padding: 8px;
+}
+
+.score-detail tbody tr.highlight td {
+  background-color: rgb(255,204,204);
+}
+
+.chart-container {
+  width: 100%;
+  padding: 0 20px;
+  margin-bottom: 20px;
+  height: 250px; /* ← 好きな高さに調整 */
+}
+
+.chart-container canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.data-table {
+  border-collapse: collapse;
+  width: calc(100% - 40px);
+  margin: 0 20px 40px;
+  font-size: 12px;
+  table-layout: fixed;
+}
+
+.data-table th,
+.data-table td {
+  border: 1px solid #aaa;
+  padding: 6px;
+  text-align: center;
+}
+
+/* ------------------------------
+  page5 各項目の評価 03
+------------------------------ */
+.criteria-content {
+  display: flex;
+  gap: 40px;
+  padding: 20px;
+}
+
+.criteria-left {
+  flex: 1;
+  max-width: 30%;
+}
+
+.criteria-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* 背景色付きセル */
+.bg-lead      { background-color: rgb(255, 228, 228); } /* optional lighter */
+.bg-active    { background-color: rgb(255, 236, 217); }
+.bg-motivation{ background-color: rgb(255, 247, 197); }
+.bg-team      { background-color: rgb(221, 239, 216); }
+.bg-reward    { background-color: rgb(222, 235, 247); }
+.bg-culture   { background-color: rgb(237, 229, 247); }
+
+/* テキスト色 */
+.color-lead      { color: rgb(227, 49, 49); }
+.color-active    { color: rgb(197, 90, 17); }
+.color-motivation{ color: rgb(191, 144, 0); }
+.color-team      { color: rgb(84, 130, 53); }
+.color-reward    { color: rgb(47, 85, 151); }
+.color-culture   { color: rgb(112, 48, 160); }
+
+.criteria-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.criteria-table th,
+.criteria-table td {
+  border: 1px solid #aaa;
+  padding: 6px;
+  text-align: center;
+}
+
+.criteria-description p {
+  font-size: 13px;
+  line-height: 1.6;
+}
 
 
 .weaknesses-columns,
